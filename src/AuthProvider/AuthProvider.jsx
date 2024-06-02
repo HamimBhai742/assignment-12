@@ -27,12 +27,13 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser)
             setLoding(false)
             if (currentUser) {
                 const userInfo = { email: currentUser?.email }
-                const res = axios.post('http://localhost:5000/jwt', userInfo)
+                const res = await axios.post('http://localhost:5000/jwt', userInfo)
+                console.log(res.data);
                 if (res.data.token) {
                     localStorage.setItem('access-token', res.data.token)
                     setUser(currentUser)
@@ -55,7 +56,8 @@ const AuthProvider = ({ children }) => {
         registerUser,
         googleLogin,
         loginUser,
-        logOut
+        logOut,
+        loding
     }
     return (
         <div>

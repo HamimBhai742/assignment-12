@@ -2,6 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-.bbgg{
-  background-image: url('./assets/contest-blog-feature.jpg');
+.bbgg {
+  background-image: url('./assets/business-competition-concept-illustration_114360-5823.jpg');
+}
+
+.bbgg1 {
+  background-image: url('./assets/gold-trophy-cup-isolated-transparent-background-png_888962-457-removebg-preview.png');
+}
+
+.bgbnner1 {
+  background: url('./assets/lots-colorful-tiny-confetti-ribbons-transparent-background-festive-event-party-multicolor-background-colorful-bright-confetti-isolated-transparent-background_220217-3029.jpg');
+}
+
+.active {
+  border-bottom: solid 2px royalblue;
+  color: rgb(7, 7, 206);
+}
+
+#sidebar .active {
+  border-bottom: solid 3px rgb(235, 198, 10);
+  color: rgb(243, 223, 8);
+  width: fit-content;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 1ms linear infinite;
+  animation: spin 1ms linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

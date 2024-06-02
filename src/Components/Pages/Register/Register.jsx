@@ -40,16 +40,16 @@ const Register = () => {
         setShowPass(!showPass)
     }
     return (
-        <div className='my-5'>
+        <div className='mt-32 mb-5'>
             <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-[1170px]">
-                <div className="hidden bg-cover lg:block lg:w-[650px] bbgg"></div>
+                <div className="hidden bg-cover lg:block lg:w-[650px] bbgg1"></div>
                 <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
                     <div className="flex justify-center mx-auto">
                         <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="" />
                     </div>
 
                     <p className="mt-3 text-4xl text-center font-bold font-cinzel">
-                        Sing Up
+                        Sign Up
                     </p>
 
                     <button onClick={loginWithGoogle} className="flex w-full items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">

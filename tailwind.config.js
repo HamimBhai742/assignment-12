@@ -9,7 +9,8 @@ export default {
       fontFamily: {
         cinzel: ["Cinzel"],
         inter: ["Inter"],
-        poppins: ["Poppins"]
+        poppins: ["Poppins"],
+        lato: ["Lato"]
       }
     },
   },
