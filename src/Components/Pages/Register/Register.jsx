@@ -5,6 +5,7 @@ import { updateProfile } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { FaEyeSlash } from 'react-icons/fa6';
 import { FaEye } from 'react-icons/fa';
+import axios from 'axios';
 
 const Register = () => {
     const [showPass, setShowPass] = useState(false)
@@ -16,8 +17,15 @@ const Register = () => {
         console.log(data);
         console.log(errors);
         registerUser(data.email, data.password)
-            .then(datas => {
+            .then(async (datas) => {
                 console.log(datas.user);
+                const users = {
+                    name: data.name,
+                    email: data.email,
+                    photoUrl: data.photo
+                }
+                const res = await axios.post('http://localhost:5000/users', users)
+                console.log(res.data);
                 updateProfile(datas.user, {
                     displayName: data.name, photoURL: data.photo
                 })
@@ -28,8 +36,17 @@ const Register = () => {
     }
     const loginWithGoogle = () => {
         googleLogin()
-            .then(res => {
+            .then(async (res) => {
                 console.log(res.user);
+                const users = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    photoUrl: res.user?.photoURL
+                }
+                if (res.user) {
+                    const res = await axios.post('http://localhost:5000/users', users)
+                    console.log(res.data);
+                }
             })
             .catch(error => {
                 console.log(error);

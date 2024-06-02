@@ -9,6 +9,7 @@ import Dashboard from '../Layout/Dashboard/Dashboard';
 import ViewDetails from '../Components/Pages/ViewDetails/ViewDetails';
 import MyProfile from '../Components/Pages/MyProfile/MyProfile';
 import MyPerticipated from '../Components/Pages/MyPerticipated/MyPerticipated';
+import ManageUser from '../Components/Pages/ManageUser/ManageUser';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path:'my-perticipated',
                 element:<MyPerticipated></MyPerticipated>
+            },
+            {
+                path:'manage-users',
+                element:<ManageUser></ManageUser>
             }
         ]
     }

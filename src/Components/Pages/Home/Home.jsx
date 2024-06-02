@@ -3,8 +3,10 @@ import axios from 'axios';
 import React from 'react';
 import PopularContest from './PopularContest/PopularContest';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
+import useAuth from '../../../hooks/useAuth';
 
 const Home = () => {
+    const { user } = useAuth()
     const handelSearchBtn = () => {
         console.log('object');
         const search = document.getElementById('search').value.toLowerCase()
@@ -18,6 +20,7 @@ const Home = () => {
         }
     })
     console.log(popularContest);
+    console.log(user);
     return (
         <div className='mt-32 mx-5 z-10'>
             <div className='bgbnner1 h-[400px] w-full rounded-md relative'>
