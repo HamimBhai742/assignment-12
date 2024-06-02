@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bbgg{
+  background-image: url('./assets/contest-blog-feature.jpg');
+}
