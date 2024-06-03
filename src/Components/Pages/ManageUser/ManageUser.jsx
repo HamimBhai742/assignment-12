@@ -21,6 +21,24 @@ const ManageUser = () => {
     console.log(users);
     // console.log(users);
     const handelBlockBtn = async (id) => {
+        const findUser = users.find(user => user._id === id)
+        if (findUser?.role === "Admin") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You can't bolck admin!",
+            });
+            return
+        }
+
+        if (findUser?.role === "User") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You can't bolck user!",
+            });
+            return
+        }
         Swal.fire({
             title: "Are you sure?",
             text: "You want to block this user!",
@@ -55,6 +73,8 @@ const ManageUser = () => {
             if (result.isConfirmed) {
                 const res = await axios.patch(`http://localhost:5000/users/unblocking/${id}`)
                 console.log(res.data);
+                const result = await axios.patch(`http://localhost:5000/users/${id}`)
+                // console.log(res.data);
                 Swal.fire({
                     title: "Unblock!",
                     text: "User have been unblock",
@@ -108,6 +128,12 @@ const ManageUser = () => {
 
         if (roleCheaker === 'contestCreator') {
             const res = await axios.patch(`http://localhost:5000/users/contest/creator/${id}`)
+            console.log(res.data);
+            refetch()
+        }
+
+        if (roleCheaker === 'user') {
+            const res = await axios.patch(`http://localhost:5000/users/${id}`)
             console.log(res.data);
             refetch()
         }

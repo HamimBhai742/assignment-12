@@ -26,7 +26,8 @@ const Register = () => {
                     name: data.name,
                     email: data.email,
                     photoUrl: data.photo,
-                    status: "Active"
+                    status: "Active",
+                    role: "User"
                 }
                 const res = await axios.post('http://localhost:5000/users', usersInfo)
                 console.log(res.data);

@@ -10,6 +10,11 @@ import ViewDetails from '../Components/Pages/ViewDetails/ViewDetails';
 import MyProfile from '../Components/Pages/MyProfile/MyProfile';
 import MyPerticipated from '../Components/Pages/MyPerticipated/MyPerticipated';
 import ManageUser from '../Components/Pages/ManageUser/ManageUser';
+import AdminPeivateRoute from '../PrivateRoute/AdminPeivateRoute';
+import AddContest from '../Components/Pages/AddContest/AddContest';
+import MyCreatedContest from '../Components/Pages/MyCreatedContest/MyCreatedContest';
+import CreatorPrivateRoute from '../PrivateRoute/CreatorPrivateRoute';
+import ManageContest from '../Components/Pages/ManageContest/ManageContest';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -47,12 +52,24 @@ const router = createBrowserRouter([
                 element: <MyProfile></MyProfile>
             },
             {
-                path:'my-perticipated',
-                element:<MyPerticipated></MyPerticipated>
+                path: 'my-perticipated',
+                element: <MyPerticipated></MyPerticipated>
             },
             {
-                path:'manage-users',
-                element:<ManageUser></ManageUser>
+                path: 'manage-users',
+                element: <AdminPeivateRoute><ManageUser></ManageUser></AdminPeivateRoute>
+            },
+            {
+                path: 'manage-contest',
+                element: <AdminPeivateRoute><ManageContest></ManageContest></AdminPeivateRoute>
+            },
+            {
+                path: 'add-contest',
+                element: <CreatorPrivateRoute><AddContest></AddContest></CreatorPrivateRoute>
+            },
+            {
+                path: 'my-created-contest',
+                element: <CreatorPrivateRoute><MyCreatedContest></MyCreatedContest></CreatorPrivateRoute>
             }
         ]
     }

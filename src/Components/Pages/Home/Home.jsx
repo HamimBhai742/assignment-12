@@ -4,8 +4,14 @@ import React from 'react';
 import PopularContest from './PopularContest/PopularContest';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import useAuth from '../../../hooks/useAuth';
+import useAdmin from '../../../hooks/useAdmin';
+import useCreator from '../../../hooks/useCreator';
 
 const Home = () => {
+    const [isAdmin]=useAdmin()
+    console.log(isAdmin);
+    const [isCreator]=useCreator()
+    console.log(isCreator);
     const { user } = useAuth()
     const handelSearchBtn = () => {
         console.log('object');
