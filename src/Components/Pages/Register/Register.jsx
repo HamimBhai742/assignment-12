@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom';
 import { FaEyeSlash } from 'react-icons/fa6';
 import { FaEye } from 'react-icons/fa';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import useUser from '../../../hooks/useUser';
 
 const Register = () => {
     const [showPass, setShowPass] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const { registerUser, googleLogin, user } = useAuth()
+    const [users, refetch] = useUser()
     // const [errors, setError] = useState(errors)
     const onSubmit = async (data) => {
 
@@ -19,13 +22,25 @@ const Register = () => {
         registerUser(data.email, data.password)
             .then(async (datas) => {
                 console.log(datas.user);
-                const users = {
+                const usersInfo = {
                     name: data.name,
                     email: data.email,
-                    photoUrl: data.photo
+                    photoUrl: data.photo,
+                    status: "Active"
                 }
-                const res = await axios.post('http://localhost:5000/users', users)
+                const res = await axios.post('http://localhost:5000/users', usersInfo)
                 console.log(res.data);
+                if (res.data?.insertedId) {
+                    reset()
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "You have been succcessfully register",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
                 updateProfile(datas.user, {
                     displayName: data.name, photoURL: data.photo
                 })
@@ -37,15 +52,22 @@ const Register = () => {
     const loginWithGoogle = () => {
         googleLogin()
             .then(async (res) => {
-                console.log(res.user);
-                const users = {
+                console.log(res.user.email);
+                const cheaker = users.find(user => user.email === res.user?.email)
+                console.log(cheaker);
+                console.log(users);
+                const usersInfo = {
                     name: res.user?.displayName,
                     email: res.user?.email,
-                    photoUrl: res.user?.photoURL
+                    photoUrl: res.user?.photoURL,
+                    status: "Active",
+                    role: "User"
                 }
-                if (res.user) {
-                    const res = await axios.post('http://localhost:5000/users', users)
+                if (!cheaker) {
+                    console.log(usersInfo);
+                    const res = await axios.post('http://localhost:5000/users', usersInfo)
                     console.log(res.data);
+
                 }
             })
             .catch(error => {

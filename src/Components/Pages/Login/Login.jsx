@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import axios from 'axios';
+import useUser from '../../../hooks/useUser';
 
 const Login = () => {
+    const [users] = useUser()
     const [showPass, setShowPass] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { loginUser, googleLogin, user } = useAuth()
@@ -23,15 +25,23 @@ const Login = () => {
     const loginWithGoogle = () => {
         googleLogin()
             .then(async (res) => {
-                
-                const users = {
+
+                console.log(res.user.email);
+                const cheaker = users.find(user => user.email === res.user?.email)
+                console.log(cheaker);
+                console.log(users);
+                const usersInfo = {
                     name: res.user?.displayName,
                     email: res.user?.email,
-                    photoUrl: res.user?.photoURL
+                    photoUrl: res.user?.photoURL,
+                    status: "Active",
+                    role: "User"
                 }
-                if (res.user) {
-                    const res = await axios.post('http://localhost:5000/users', users)
+                if (!cheaker) {
+                    console.log(usersInfo);
+                    const res = await axios.post('http://localhost:5000/users', usersInfo)
                     console.log(res.data);
+
                 }
             })
             .catch(error => {
