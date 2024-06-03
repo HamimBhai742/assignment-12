@@ -7,19 +7,14 @@ import { HiDotsVertical } from "react-icons/hi";
 import { MdBlock, MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useUser from "../../../hooks/useUser";
+import useAuth from "../../../hooks/useAuth";
 
 const ManageUser = () => {
-    // const [roleValue, setRoleValue] = useState('')
-    // const { data: users = [], refetch } = useQuery({
-    //     queryKey: ["Users"],
-    //     queryFn: async () => {
-    //         const res = await axios.get('http://localhost:5000/users')
-    //         return res.data;
-    //     }
-    // })
     const [users, refetch] = useUser()
-    console.log(users);
-    // console.log(users);
+    const { user } = useAuth()
+    const totalUser = users.filter(u => u.role === 'User')
+    const totalCreator = users.filter(u => u.role === 'Creator')
+    const totalAdmin = users.filter(u => u.role === 'Admin')
     const handelBlockBtn = async (id) => {
         const findUser = users.find(user => user._id === id)
         if (findUser?.role === "Admin") {
@@ -27,15 +22,6 @@ const ManageUser = () => {
                 icon: "error",
                 title: "Oops...",
                 text: "You can't bolck admin!",
-            });
-            return
-        }
-
-        if (findUser?.role === "User") {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You can't bolck user!",
             });
             return
         }
@@ -87,8 +73,15 @@ const ManageUser = () => {
     }
     const handelDeleteBtn = async (id) => {
         console.log(id);
-
-
+        const findUser = users.find(user => user._id === id)
+        if (findUser?.role === "Admin") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You can't delete admin!",
+            });
+            return
+        }
         Swal.fire({
             title: "Are you sure?",
             text: "You want to be delete this user!",
@@ -114,12 +107,16 @@ const ManageUser = () => {
         const roleValue = e.target.value;
         const roleCheaker = roleValue.split(',')[0]
         const id = roleValue.split(',')[1]
-        console.log(roleCheaker);
+        // console.log(roleCheaker);
         // console.log(email);
         // const admin=document.getElementById('admin').value
         // console.log(admin);
-        console.log(e.target.value);
+        // console.log(e.target.value);
         // const roleValue = e.target.value
+        const findCurent = users.find(u => u._id === id)
+        // console.log(findCurent);
+        const curretUser = findCurent?.email === user?.email
+        // console.log(curretUser);
         if (roleCheaker === 'admin') {
             const res = await axios.patch(`http://localhost:5000/users/admin/${id}`)
             console.log(res.data);
@@ -127,12 +124,28 @@ const ManageUser = () => {
         }
 
         if (roleCheaker === 'contestCreator') {
+            if (curretUser) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You can't change the role!",
+                });
+                return
+            }
             const res = await axios.patch(`http://localhost:5000/users/contest/creator/${id}`)
             console.log(res.data);
             refetch()
         }
 
         if (roleCheaker === 'user') {
+            if (curretUser) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You can't change the role!",
+                });
+                return
+            }
             const res = await axios.patch(`http://localhost:5000/users/${id}`)
             console.log(res.data);
             refetch()
@@ -141,18 +154,24 @@ const ManageUser = () => {
 
         // }
     }
-
-    // console.log(roleValue);
-    // const hadel = (email) => {
-    //     console.log(email);
-    //     console.log(roleValue);
-    // }
     return (
-        <section className="container px-4 mt-5 max-w-[900px] ml-16">
-            <div className="flex items-center gap-x-3">
-                <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total User</h2>
+        <section className="container px-4 mt-5 max-w-[900px] ml-12">
+            <div className="flex justify-around">
+                <div className="flex items-center gap-x-3">
+                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total User</h2>
 
-                <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{users?.length}</span>
+                    <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{totalUser?.length}</span>
+                </div>
+                <div className="flex items-center gap-x-3">
+                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Creator</h2>
+
+                    <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{totalCreator?.length}</span>
+                </div>
+                <div className="flex items-center gap-x-3">
+                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Admin</h2>
+
+                    <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{totalAdmin?.length}</span>
+                </div>
             </div>
             <table className="table-auto w-[880px] bg-white rounded-t-xl shadow mt-6">
                 <thead>
@@ -170,7 +189,7 @@ const ManageUser = () => {
                         users.map((user, idx) => <tr key={idx} className="border-b border-gray-200 hover:bg-gray-100">
                             <td className="py-3 px-6 font-bold">{idx + 1}</td>
                             <td className="py-3 px-6 "> <div className="flex items-center gap-x-2">
-                                <img className="object-cover w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="" />
+                                <img className="object-cover w-10 h-10 rounded-full" src={user.photoUrl} alt="" />
                                 <div>
                                     <h2 className="font-medium text-gray-800 dark:text-white ">{user.name}</h2>
                                     <p className="text-sm font-normal text-gray-600 dark:text-gray-400">{user.email}</p>
