@@ -7,6 +7,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAuth from '../../../hooks/useAuth';
 
 const API_KEY = import.meta.env.VITE_IMAGE_API_KEY
 const Hosting = `https://api.imgbb.com/1/upload?key=${API_KEY}`
@@ -15,6 +16,7 @@ const AddContest = () => {
     // formState: { errors }, 
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
+    const { user } = useAuth()
     const { register, handleSubmit, control, reset } = useForm()
     // const [startDate, setStartDate] = useState(new Date());
     const onSubmit = async (data) => {
@@ -40,7 +42,8 @@ const AddContest = () => {
             contestTag: data.contestTag,
             contestPrice: data.contestPrice,
             deadLine: formattedData.deadLine,
-            prizeMoney: data.prizeMoney
+            prizeMoney: data.prizeMoney,
+            addUserEmail: user?.email
         }
         console.log(contestInfo);
         const result = await axiosSecure.post('/contest', contestInfo)
@@ -65,7 +68,7 @@ const AddContest = () => {
                 <p className="text-xs max-w-96 mx-auto font-inter">Add your favorite contest.Mention the price along with the contest.Also mention the date line of adding the contest.</p>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} noValidate="" action="" className="container p-6 font-lato">
-                <fieldset className="grid grid-cols-2 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-50">
+                <fieldset className="grid grid-cols-2 gap-6 p-6 rounded-md dark:bg-gray-50">
                     <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                         <div className="col-span-full sm:col-span-3">
                             <label className="text-sm font-semibold">Contest Name</label>

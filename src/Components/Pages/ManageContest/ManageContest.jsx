@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useContest from '../../../hooks/useContest';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { TfiCommentsSmiley } from 'react-icons/tfi';
+import { useForm } from 'react-hook-form';
+import useAuth from '../../../hooks/useAuth';
+import useUser from '../../../hooks/useUser';
+import { FaRegComment } from 'react-icons/fa6';
 
 const ManageContest = () => {
+    // const { register, handleSubmit, control, reset } = useForm()
     const [contest, refetch] = useContest()
+    const [usd, setUsd] = useState()
     console.log(contest);
+    const { user } = useAuth()
+    const [users] = useUser()
     const axiosSecure = useAxiosSecure()
     const handelAproveBtn = async (id) => {
-        console.log(id);
         Swal.fire({
             title: "Are you sure?",
             text: "You want to be delete this user!",
@@ -30,14 +37,53 @@ const ManageContest = () => {
                 refetch()
             }
         });
+    }
+    const hadel = (id) => {
+        console.log(id);
+        const us = contest.find(c => c._id === id)
+        // console.log(us);
+        setUsd(us)
+    }
+    // const onSubmit = async (data) => {
+    //     console.log(data);
+    // }
+    console.log(usd);
+    const handleSubmitBtn = async (e) => {
+        // console.log(usd);
+        e.preventDefault()
+        const comments = e.target.comment.value
+        // console.log(comments);
+        const commetAdmin = users.find(u => u.email === user.email)
+        console.log(commetAdmin);
+        const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+        const currentDate = new Date().toISOString().slice(0, 10).split('-').reverse().join('-')
+        const currentDateAndTime = currentTime + ", " + currentDate
+        console.log(currentDateAndTime);
+        console.log(usd);
+        const commentInfo = {
+            commenterAdmin: commetAdmin.name,
+            commenterImg: commetAdmin.photoUrl,
+            comment: comments,
+            commentDate: currentDateAndTime,
+            creatorEmail: usd?.addUserEmail
+        }
+        console.log(commentInfo);
+        const res = await axiosSecure.post('/comments', commentInfo)
+        console.log(res.data);
+        if (res.data.insertedId) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Comment added succcesfully",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            e.target.reset()
+        }
+    }
 
-        // console.log(res.data);
-        // refetch()
-    }
-    const ha=()=>{
-        const bb=document.getElementById("ll").value
-        console.log(bb);
-    }
+    // console.log(id);
+
     return (
         <div>
             <div className="overflow-x-auto">
@@ -65,32 +111,28 @@ const ManageContest = () => {
                                 <td>${con.contestPrice}</td>
                                 <td><button onClick={() => handelAproveBtn(con._id)}>{con?.status === 'accept' ? <span>Confirmed</span> : <span>Confirm</span>}</button></td>
                                 <td>{/* Open the modal using document.getElementById('ID').showModal() method */}
-                                    <button className="text-2xl" onClick={() => document.getElementById('my_modal_1').showModal()}><TfiCommentsSmiley></TfiCommentsSmiley></button>
-                                    <dialog id="my_modal_1" className="modal">
-                                        <div className="modal-box w-80 py-2">
-                                            <p className="pt-3">Please give me your feedback!</p>
-                                            <div className="modal-action">
-                                                <form method="dialog">
-                                                    <div className='ml-14'>
-                                                        <textarea id='ll' className="textarea textarea-bordered w-64 " placeholder="Comment"></textarea>
-                                                    </div>
-                                                    {/* if there is a button in form, it will close the modal */}
-                                                    <div className='flex gap-3 ml-36'>
-                                                        <button className="btn mt-4 btn-info">Cancel</button>
-                                                        <button onClick={ha}  className="btn mt-4 btn-primary font-semibold">Submit</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                    <button disabled={con.status === 'accept'} defaultValue={con._id} className="btn" onClick={() => document.getElementById('my_modal_2').showModal() || hadel(con._id)}>Comment <span className='text-xl'><FaRegComment></FaRegComment></span></button>
+                                    <dialog id="my_modal_2" className="modal">
+                                        <div className="modal-box w-64 font-inter">
+                                            <p className="pb-2">Please give me your feedback!</p>
+                                            <form onSubmit={handleSubmitBtn}>
+                                                <textarea name='comment' className="textarea textarea-bordered" placeholder="Comment"></textarea>
+                                                {/* <input {...register("sname")} type="text" /> */}
+                                                {/* <button className='btn'>Submit</button> */}
+                                                <input type="submit" className='btn mt-3 ml-28 font-semibold btn-primary' value="Comment" />
+                                            </form>
                                         </div>
-                                    </dialog>
-                                </td>
+                                        <form method="dialog" className="modal-backdrop"> 
+                                            <button>close</button>
+                                        </form>
+                                    </dialog></td>
                                 <td>Btn</td>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     );
 };
 
