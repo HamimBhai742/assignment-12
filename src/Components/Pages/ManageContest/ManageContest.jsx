@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import useUser from '../../../hooks/useUser';
 import { FaRegComment } from 'react-icons/fa6';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const ManageContest = () => {
     // const { register, handleSubmit, control, reset } = useForm()
@@ -19,19 +20,19 @@ const ManageContest = () => {
     const handelAproveBtn = async (id) => {
         Swal.fire({
             title: "Are you sure?",
-            text: "You want to be delete this user!",
+            text: "You want to confirmed this contest!!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Delete!"
+            confirmButtonText: "Yes, Confirm!"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.patch(`/contest/admin/${id}`)
                 // console.log(res.data);
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "User deleted successfully.",
+                    title: "Confirmed!",
+                    text: "Contest accept successfully.",
                     icon: "success"
                 });
                 refetch()
@@ -83,13 +84,42 @@ const ManageContest = () => {
     }
 
     // console.log(id);
+    const handelContestDeleteBtn = async (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to be delete this contest!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Delete!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const result = await axiosSecure.delete(`/contest/admin/${id}`)
+                console.log(result.data);
+                if (result.data.deletedCount > 0) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Contest deleted successfully.",
+                        icon: "success"
+                    });
+                    refetch()
+                }
 
+            }
+        });
+    }
     return (
-        <div>
-            <div className="overflow-x-auto">
+        <div className='ml-16 mt-8'>
+            <div className="flex items-center gap-x-3">
+                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Contest</h2>
+
+                    <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{contest?.length}</span>
+                </div>
+            <div className="overflow-x-auto mt-3">
                 <table className="table">
                     {/* head */}
-                    <thead>
+                    <thead className='font-inter'>
                         <tr>
                             <th>Sl.</th>
                             <th>Contest Image</th>
@@ -101,7 +131,7 @@ const ManageContest = () => {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='font-lato'>
                         {
                             contest.map((con, idx) => <tr key={idx}>
                                 <th>{idx + 1}</th>
@@ -109,7 +139,7 @@ const ManageContest = () => {
                                 <td>{con.contestName}</td>
                                 <td>{con.deadLine}</td>
                                 <td>${con.contestPrice}</td>
-                                <td><button onClick={() => handelAproveBtn(con._id)}>{con?.status === 'accept' ? <span>Confirmed</span> : <span>Confirm</span>}</button></td>
+                                <td><button disabled={con?.status === 'accept'} onClick={() => handelAproveBtn(con._id)}>{con?.status === 'accept' ? <span className='bg-green-200 font-semibold px-3 py-2 rounded-full text-green-600'>Confirmed</span> : <span className='bg-rose-200 font-semibold px-3 py-2 rounded-full text-rose-600'>Confirm</span>}</button></td>
                                 <td>{/* Open the modal using document.getElementById('ID').showModal() method */}
                                     <button disabled={con.status === 'accept'} defaultValue={con._id} className="btn" onClick={() => document.getElementById('my_modal_2').showModal() || hadel(con._id)}>Comment <span className='text-xl'><FaRegComment></FaRegComment></span></button>
                                     <dialog id="my_modal_2" className="modal">
@@ -122,11 +152,11 @@ const ManageContest = () => {
                                                 <input type="submit" className='btn mt-3 ml-28 font-semibold btn-primary' value="Comment" />
                                             </form>
                                         </div>
-                                        <form method="dialog" className="modal-backdrop"> 
+                                        <form method="dialog" className="modal-backdrop">
                                             <button>close</button>
                                         </form>
                                     </dialog></td>
-                                <td>Btn</td>
+                                <td><button onClick={() => handelContestDeleteBtn(con._id)} className='text-2xl'><RiDeleteBin6Line></RiDeleteBin6Line></button></td>
                             </tr>)
                         }
                     </tbody>
