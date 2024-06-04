@@ -15,6 +15,7 @@ import AddContest from '../Components/Pages/AddContest/AddContest';
 import MyCreatedContest from '../Components/Pages/MyCreatedContest/MyCreatedContest';
 import CreatorPrivateRoute from '../PrivateRoute/CreatorPrivateRoute';
 import ManageContest from '../Components/Pages/ManageContest/ManageContest';
+import UpdateContest from '../Components/Pages/UpdateContest/UpdateContest';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
             {
                 path: 'my-created-contest',
                 element: <CreatorPrivateRoute><MyCreatedContest></MyCreatedContest></CreatorPrivateRoute>
+            },
+            {
+                path: 'update-contest/:id',
+                element: <UpdateContest></UpdateContest>
             }
         ]
     }
