@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const ManageContest = () => {
-    const [contest] = useContest()
+    const [contest,reCall] = useContest()
     const [creator, setCreator] = useState()
     const { user } = useAuth()
     const [users] = useUser()
@@ -127,6 +127,7 @@ const ManageContest = () => {
                         text: "Contest deleted successfully.",
                         icon: "success"
                     });
+                    reCall()
                     refetch()
                 }
 
@@ -140,7 +141,7 @@ const ManageContest = () => {
             <div className="flex items-center gap-x-3">
                 <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Contest</h2>
 
-                <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{contests?.length}</span>
+                <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{contest?.length}</span>
             </div>
             <div className="overflow-x-auto mt-3">
                 <table className="table">
@@ -196,7 +197,7 @@ const ManageContest = () => {
                     }
                 </div>
                 <button onClick={handelNextBtn}><span className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowForward></IoIosArrowForward></span></button>
-                <select onChange={handelSelectedBtn} defaultValue={itemsPerPage} className=' border-2 h-10 w-28 font-medium font-inter border-slate-600' id="">
+                <select onChange={handelSelectedBtn} defaultValue={itemsPerPage} className=' border-2 h-10 w-28 font-medium font-inter border-slate-600 rounded-lg px-1' id="">
                     <option value="5">5 / Page</option>
                     <option value="10">10 / Page</option>
                     <option value="20">20 / Page</option>

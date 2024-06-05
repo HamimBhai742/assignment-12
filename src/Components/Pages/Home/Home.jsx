@@ -28,7 +28,7 @@ const Home = () => {
     console.log(popularContest);
     console.log(user);
     return (
-        <div className='mt-32 mx-5 z-10'>
+        <div className='mt-28 mx-5 z-10'>
             <div className='bgbnner1 h-[400px] w-full rounded-md relative'>
                 <div className='w-96 absolute top-44 left-96'>
                     <label className="input input-bordered flex items-center gap-2">

@@ -8,15 +8,50 @@ import { MdBlock, MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useUser from "../../../hooks/useUser";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const ManageUser = () => {
-    const [users, refetch] = useUser()
+    const [users,reUse] = useUser()
     const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
+
+    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [currentPage, setCurrentPage] = useState(0)
+    const numberOfPages = Math.ceil(users?.length / itemsPerPage)
+    const pages = [...Array(numberOfPages).keys()]
+    const handelSelectedBtn = e => {
+        const val = parseInt(e.target.value)
+        setItemsPerPage(val)
+        setCurrentPage(0)
+    }
+
+    const handelPrevBtn = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+    const handelNextBtn = () => {
+        if (currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const { data: perPageUser = [], refetch } = useQuery({
+        queryKey: [currentPage, itemsPerPage, 'perPageUser'],
+        queryFn: async () => {
+            const results = await axiosSecure.get(`/manage-users?page=${currentPage}&size=${itemsPerPage}`)
+            // console.log(results.data);
+            return results.data;
+        }
+    })
+
+
     const totalUser = users.filter(u => u.role === 'User')
     const totalCreator = users.filter(u => u.role === 'Creator')
     const totalAdmin = users.filter(u => u.role === 'Admin')
     const handelBlockBtn = async (id) => {
-        const findUser = users.find(user => user._id === id)
+        const findUser = perPageUser.find(user => user._id === id)
         if (findUser?.role === "Admin") {
             Swal.fire({
                 icon: "error",
@@ -42,6 +77,7 @@ const ManageUser = () => {
                     text: "User have been block",
                     icon: "success"
                 });
+                reUse()
                 refetch()
             }
         });
@@ -66,6 +102,7 @@ const ManageUser = () => {
                     text: "User have been unblock",
                     icon: "success"
                 });
+                reUse()
                 refetch()
             }
         });
@@ -73,7 +110,7 @@ const ManageUser = () => {
     }
     const handelDeleteBtn = async (id) => {
         console.log(id);
-        const findUser = users.find(user => user._id === id)
+        const findUser = perPageUser.find(user => user._id === id)
         if (findUser?.role === "Admin") {
             Swal.fire({
                 icon: "error",
@@ -99,6 +136,7 @@ const ManageUser = () => {
                     text: "User deleted successfully.",
                     icon: "success"
                 });
+                reUse()
                 refetch()
             }
         });
@@ -120,6 +158,7 @@ const ManageUser = () => {
         if (roleCheaker === 'admin') {
             const res = await axios.patch(`http://localhost:5000/users/admin/${id}`)
             console.log(res.data);
+            reUse()
             refetch()
         }
 
@@ -134,6 +173,7 @@ const ManageUser = () => {
             }
             const res = await axios.patch(`http://localhost:5000/users/contest/creator/${id}`)
             console.log(res.data);
+            reUse()
             refetch()
         }
 
@@ -148,6 +188,7 @@ const ManageUser = () => {
             }
             const res = await axios.patch(`http://localhost:5000/users/${id}`)
             console.log(res.data);
+            reUse()
             refetch()
         }
         // else {
@@ -186,7 +227,7 @@ const ManageUser = () => {
                 </thead>
                 <tbody className="text-gray-600 text-sm font-lato">
                     {
-                        users.map((user, idx) => <tr key={idx} className="border-b border-gray-200 hover:bg-gray-100">
+                        perPageUser.map((user, idx) => <tr key={idx} className="border-b border-gray-200 hover:bg-gray-100">
                             <td className="py-3 px-6 font-bold">{idx + 1}</td>
                             <td className="py-3 px-6 "> <div className="flex items-center gap-x-2">
                                 <img className="object-cover w-10 h-10 rounded-full" src={user.photoUrl} alt="" />
@@ -228,6 +269,22 @@ const ManageUser = () => {
                     }
                 </tbody>
             </table>
+            <div className='text-center flex gap-5 items-center justify-center my-5'>
+                <button onClick={handelPrevBtn}><div className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowBack></IoIosArrowBack></div></button>
+                <div className='flex gap-3 '>
+                    {
+                        pages?.map(page => <button onClick={() => setCurrentPage(page)} className={currentPage === page ? 'rounded-full w-10 h-10 border-[2px] border-blue-500 px-3 bg-blue-500 font-semibold' : 'border-[2px] border-blue-500 w-10 h-10 rounded-full '} key={page}>{page + 1}</button>)
+                    }
+                </div>
+                <button onClick={handelNextBtn}><span className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowForward></IoIosArrowForward></span></button>
+                <select onChange={handelSelectedBtn} defaultValue={itemsPerPage} className=' border-2 h-10 w-28 font-medium font-inter border-slate-600 rounded-lg px-1' id="">
+                    <option value="5">5 / Page</option>
+                    <option value="10">10 / Page</option>
+                    <option value="20">20 / Page</option>
+                    <option value="30">50 / Page</option>
+                </select>
+
+            </div>
         </section>
     );
 };

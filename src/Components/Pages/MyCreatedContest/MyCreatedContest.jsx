@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useContest from '../../../hooks/useContest';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
@@ -7,14 +7,52 @@ import { MdDelete } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const MyCreatedContest = () => {
-    const [contest, refetch] = useContest()
+    const [contest, reCall] = useContest()
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
-    const myCreatedContest = contest.filter(c => c.addUserEmail === user?.email)
-    console.log(contest);
+    const myContest = contest.filter(c => c.addUserEmail === user?.email)
+    // const [myCon, setMyCon] = useState(myContest)
+    // console.log(contest);
+    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [currentPage, setCurrentPage] = useState(0)
+    const numberOfPages = Math.ceil(myContest?.length / itemsPerPage)
+    const pages = [...Array(numberOfPages).keys()]
+
+    const handelSelectedBtn = e => {
+        const val = parseInt(e.target.value)
+        setItemsPerPage(val)
+        setCurrentPage(0)
+    }
+
+    const handelPrevBtn = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    // console.log('eeeeeeeeeeee',myCreatedContest);
+
+    const handelNextBtn = () => {
+        if (currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const { data: myCreatedContest = [], refetch } = useQuery({
+        queryKey: [currentPage, itemsPerPage, 'myCreatedContest'],
+        queryFn: async () => {
+            const results = await axiosSecure.get(`/my-contests/${user?.email}?page=${currentPage}&size=${itemsPerPage}`)
+            // console.log(results.data);
+            return results.data;
+        }
+    })
+
+    console.log(myCreatedContest);
+
     const { data: adminComment = [] } = useQuery({
         queryKey: ["adminComment"],
         queryFn: async () => {
@@ -47,6 +85,7 @@ const MyCreatedContest = () => {
                         text: "Contest deleted successfully.",
                         icon: "success"
                     });
+                    reCall()
                     refetch()
                 }
             }
@@ -58,7 +97,7 @@ const MyCreatedContest = () => {
                 <div className="flex items-center gap-x-3 mb-5">
                     <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total My Created Contest</h2>
 
-                    <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{myCreatedContest?.length}</span>
+                    <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{myContest?.length}</span>
                 </div>
                 <table className="table">
                     {/* head */}
@@ -90,6 +129,22 @@ const MyCreatedContest = () => {
                         }
                     </tbody>
                 </table>
+                <div className='text-center flex gap-5 items-center justify-center my-5'>
+                    <button onClick={handelPrevBtn}><div className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowBack></IoIosArrowBack></div></button>
+                    <div className='flex gap-3 '>
+                        {
+                            pages?.map(page => <button onClick={() => setCurrentPage(page)} className={currentPage === page ? 'rounded-full w-10 h-10 border-[2px] border-blue-500 px-3 bg-blue-500 font-semibold' : 'border-[2px] border-blue-500 w-10 h-10 rounded-full '} key={page}>{page + 1}</button>)
+                        }
+                    </div>
+                    <button onClick={handelNextBtn}><span className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowForward></IoIosArrowForward></span></button>
+                    <select onChange={handelSelectedBtn} defaultValue={itemsPerPage} className=' border-2 h-10 w-28 font-medium font-inter border-slate-600 rounded-lg px-1' id="">
+                        <option value="5">5 / Page</option>
+                        <option value="10">10 / Page</option>
+                        <option value="20">20 / Page</option>
+                        <option value="30">50 / Page</option>
+                    </select>
+
+                </div>
             </div>
             <div className='mt-24'>
                 {
@@ -107,6 +162,7 @@ const MyCreatedContest = () => {
                     </>)
                 }
             </div>
+
         </div>
     );
 };
