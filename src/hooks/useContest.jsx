@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAxiosPublic from './useAxiosPublic';
+import useAuth from './useAuth';
 
 const useContest = () => {
     const axiosPublic = useAxiosPublic()
+    const { user } = useAuth()
     const { data: contest = [], refetch: reCall } = useQuery({
+        enabled: !!user,
         queryKey: ['contest'],
         queryFn: async () => {
             const res = await axiosPublic.get('/contest')
