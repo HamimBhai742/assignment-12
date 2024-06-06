@@ -107,14 +107,9 @@ const Login = () => {
                         </div>
                         <div className="mt-4 relative">
                             <label className="block mb-2 text-sm font-inter font-bold text-gray-600 dark:text-gray-200">Password</label>
-                            <input {...register('password', { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, minLength: 6, maxLength: 12 })} placeholder='Your password' className="block h-12 w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 border-gray-300" type={showPass ? 'text' : 'password'} />
+                            <input {...register('password')} placeholder='Your password' className="block h-12 w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 border-gray-300" type={showPass ? 'text' : 'password'} />
                             <span className='text-xl absolute top-10 right-5' onClick={handelShowPass}>{showPass ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</span>
                         </div>
-                        {/* <div className="mt-4">
-                            <label className="block mb-2 text-sm font-inter font-bold text-gray-600 dark:text-gray-200">Photo URL</label>
-                            <input {...register('photo')} id="LoggingEmailAddress" className="block w-full px-4 py-2 h-12 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 border-gray-300" type="url" />
-                        </div> */}
-
                         <div className="mt-6">
                             <button className="w-full bg-sky-600 px-6 py-3 font-inter font-bold tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg hover:bg-purple-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
                                 Sign In

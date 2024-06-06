@@ -2,12 +2,14 @@ import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStat
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../FirebaseConfig/FireBaseConfig';
 import axios from 'axios';
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 export const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
     const auth = getAuth(app)
     const [user, setUser] = useState(null)
     const [loding, setLoding] = useState(true)
+    const axiosPublic=useAxiosPublic()
     const googleProvider = new GoogleAuthProvider()
     const registerUser = (email, password) => {
         console.log(email, password);
@@ -32,7 +34,7 @@ const AuthProvider = ({ children }) => {
             setLoding(false)
             if (currentUser) {
                 const userInfo = { email: currentUser?.email }
-                const res = await axios.post('http://localhost:5000/jwt', userInfo)
+                const res = await axiosPublic.post('/jwt', userInfo)
                 console.log(res.data);
                 if (res.data.token) {
                     localStorage.setItem('access-token', res.data.token)

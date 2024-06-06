@@ -16,6 +16,7 @@ import MyCreatedContest from '../Components/Pages/MyCreatedContest/MyCreatedCont
 import CreatorPrivateRoute from '../PrivateRoute/CreatorPrivateRoute';
 import ManageContest from '../Components/Pages/ManageContest/ManageContest';
 import UpdateContest from '../Components/Pages/UpdateContest/UpdateContest';
+import Payment from '../Components/Pages/Payment/Payment';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: '/view-details/:id',
                 element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>
+            },
+            {
+                path:'/payment/:id',
+                element:<Payment></Payment>
             }
         ]
 

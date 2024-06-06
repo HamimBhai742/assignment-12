@@ -13,7 +13,7 @@ const Navbar = () => {
     const [show, setShow] = useState(true)
     const handelCurretScrol = () => {
         const currentScroll = window.scrollY
-        setShow(prevScroll > currentScroll || currentScroll < 60);
+        setShow(prevScroll > currentScroll || currentScroll < 50);
         setPrevScroll(currentScroll);
     }
 
