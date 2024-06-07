@@ -17,10 +17,12 @@ import CreatorPrivateRoute from '../PrivateRoute/CreatorPrivateRoute';
 import ManageContest from '../Components/Pages/ManageContest/ManageContest';
 import UpdateContest from '../Components/Pages/UpdateContest/UpdateContest';
 import Payment from '../Components/Pages/Payment/Payment';
+import Error from '../Components/Pages/Error/Error';
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root></Root>,
+        errorElement:<Error></Error>,
         children: [
             {
                 path: '/',
