@@ -104,10 +104,6 @@ const CheakOut = () => {
         }
     }
 
-    // const handelParticipantsCountBtn = async () => {
-
-    //   refetch()
-    // }
     return (
         <div>
             <form onSubmit={handleSubmit} className='mt-28'>

@@ -7,7 +7,6 @@ const useContest = () => {
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
     const { data: contest = [], refetch: reCall } = useQuery({
-        enabled: !!user,
         queryKey: ['contest'],
         queryFn: async () => {
             const res = await axiosPublic.get('/contest')

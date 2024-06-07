@@ -70,8 +70,8 @@ const ManageUser = () => {
             confirmButtonText: "Yes, Block!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axios.patch(`http://localhost:5000/users/blocking/${id}`)
-                console.log(res.data);
+                const res = await axiosSecure.patch(`/users/blocking/${id}`)
+                // console.log(res.data);
                 Swal.fire({
                     title: "Block!",
                     text: "User have been block",
@@ -93,9 +93,9 @@ const ManageUser = () => {
             confirmButtonText: "Yes, Unblock!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axios.patch(`http://localhost:5000/users/unblocking/${id}`)
-                console.log(res.data);
-                const result = await axios.patch(`http://localhost:5000/users/${id}`)
+                const res = await axiosSecure.patch(`/users/unblocking/${id}`)
+                // console.log(res.data);
+                const result = await axiosSecure.patch(`/users/${id}`)
                 // console.log(res.data);
                 Swal.fire({
                     title: "Unblock!",
@@ -129,7 +129,7 @@ const ManageUser = () => {
             confirmButtonText: "Yes, Delete!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axios.delete(`http://localhost:5000/users/${id}`)
+                const res = await axiosSecure.delete(`/users/${id}`)
                 console.log(res.data);
                 Swal.fire({
                     title: "Deleted!",
@@ -145,18 +145,12 @@ const ManageUser = () => {
         const roleValue = e.target.value;
         const roleCheaker = roleValue.split(',')[0]
         const id = roleValue.split(',')[1]
-        // console.log(roleCheaker);
-        // console.log(email);
-        // const admin=document.getElementById('admin').value
-        // console.log(admin);
-        // console.log(e.target.value);
-        // const roleValue = e.target.value
         const findCurent = users.find(u => u._id === id)
         // console.log(findCurent);
         const curretUser = findCurent?.email === user?.email
         // console.log(curretUser);
         if (roleCheaker === 'admin') {
-            const res = await axios.patch(`http://localhost:5000/users/admin/${id}`)
+            const res = await axiosSecure.patch(`/users/admin/${id}`)
             console.log(res.data);
             reUse()
             refetch()
@@ -171,7 +165,7 @@ const ManageUser = () => {
                 });
                 return
             }
-            const res = await axios.patch(`http://localhost:5000/users/contest/creator/${id}`)
+            const res = await axiosSecure.patch(`/users/contest/creator/${id}`)
             console.log(res.data);
             reUse()
             refetch()
@@ -186,7 +180,7 @@ const ManageUser = () => {
                 });
                 return
             }
-            const res = await axios.patch(`http://localhost:5000/users/${id}`)
+            const res = await axiosSecure.patch(`/users/${id}`)
             console.log(res.data);
             reUse()
             refetch()

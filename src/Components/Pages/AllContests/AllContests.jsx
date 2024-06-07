@@ -6,9 +6,9 @@ import 'react-tabs/style/react-tabs.css';
 
 const AllContests = () => {
     const [contest] = useContest()
-    // console.log(contest);
+    console.log(contest,'uuuuuuuuuuu');
     const accepContest = contest.filter(c => c.status === 'accept')
-    // console.log(accepContest);
+    console.log(accepContest,'mmmmmmmmmmmm');
     const marketing = accepContest.filter(acpt => acpt.contestTag === 'Marketing Strategy')
     const business = accepContest.filter(acpt => acpt.contestTag === 'Business Idea Concerts')
     const gaming = accepContest.filter(acpt => acpt.contestTag === 'Gaming Review')
@@ -16,7 +16,7 @@ const AllContests = () => {
     const digital = accepContest.filter(acpt => acpt.contestTag === 'Digital advertisement')
     const image = accepContest.filter(acpt => acpt.contestTag === 'Image Design')
     const article = accepContest.filter(acpt => acpt.contestTag === 'Article Writing')
-    // console.log(marketing);
+    console.log(marketing);
     return (
         <div className='mt-28 mx-5'>
             <Tabs>

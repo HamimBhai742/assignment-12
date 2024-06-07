@@ -6,27 +6,31 @@ import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import useAuth from '../../../hooks/useAuth';
 import useAdmin from '../../../hooks/useAdmin';
 import useCreator from '../../../hooks/useCreator';
+import useContest from '../../../hooks/useContest';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const Home = () => {
-    const [isAdmin]=useAdmin()
-    console.log(isAdmin);
-    const [isCreator]=useCreator()
-    console.log(isCreator);
+    const [isAdmin] = useAdmin()
+    const [isCreator] = useCreator()
     const { user } = useAuth()
+    const [contest] = useContest()
+    const axiosPublic = useAxiosPublic()
+
+    const successContest = contest.filter(c => c.status === 'accept')
+
     const handelSearchBtn = () => {
-        console.log('object');
         const search = document.getElementById('search').value.toLowerCase()
-        console.log(search);
     }
+
     const { data: popularContest = [] } = useQuery({
         queryKey: ['popular-contest'],
         queryFn: async () => {
-            const res = await axios.get('/public/contest.json')
+            const res = await axiosPublic.get('/popular/contest')
             return res.data
         }
     })
     console.log(popularContest);
-    console.log(user);
+
     return (
         <div className='mt-28 mx-5 z-10'>
             <div className='bgbnner1 h-[400px] w-full rounded-md relative'>
@@ -40,11 +44,9 @@ const Home = () => {
             <HeadingTitle value='Popular Contests'></HeadingTitle>
             <div className='grid grid-cols-3 gap-5'>
                 {
-                    popularContest.map((con, idx) => <PopularContest con={con} key={idx}></PopularContest>)
+                    popularContest?.map((con, idx) => <PopularContest con={con} key={idx}></PopularContest>)
                 }
-
             </div>
-            {/* <div className="loader"></div> */}
         </div>
     );
 };

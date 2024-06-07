@@ -6,11 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 const useCreator = () => {
     const { user } = useAuth()
     const [users] = useUser()
-    // const findCurrentLogInfo = users.find(u => u.email === user?.email)
-    // if (findCurrentLogInfo) {
-    //     findCurrentLogInfo.role = 'Admin'
-    //     return [findCurrentLogInfo]
-    // }
     const { data: isCreator, isPending: isCreatorLoding } = useQuery({
         queryKey: [user?.email, 'isCreator'],
         queryFn: async () => {

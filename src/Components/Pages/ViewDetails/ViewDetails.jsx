@@ -13,31 +13,10 @@ const ViewDetails = () => {
   const [payHistory] = usePayData()
   const axiosPublic = useAxiosPublic()
   const findContest = contest.find(c => c._id === id)
-  // console.log(findContest);
-  // let count = findContest?.participantsCount || 0
-  // const handelParticipantsCountBtn = async () => {
-  //   count++
-  //   console.log(count);
-  //   const res = await axiosPublic.patch(`/contest/${id}`, { count })
-  //   console.log(res.data);
-  //   refetch()
-  // }
-  // const { contestDes, contestImg, contestName, contestPrice, contestTag, deadLine, prizeMoney, status, taskDetails, _id } = findContest
-  console.log(payHistory);
   const navigate = useNavigate()
   const handelRegistration = (id) => {
     const findPay = payHistory.find(pay => pay.contestId === id)
-    console.log(findPay,'hhhhhhhh');
-    // console.log(user?.email,'cccccccuuuuuuuuuuuu');
-    // console.log(findPay?.email,'gggggggguuuuuu');
-    // if (findPay?.email === user?.email) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Oops...",
-    //     text: "You have already registration",
-    //   });
-    //   return
-    // }
+    console.log(findPay);
     navigate(`/payment/${id}`)
   }
   return (

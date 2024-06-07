@@ -6,11 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 const useUserRole = () => {
     const { user } = useAuth()
     const [users] = useUser()
-    // const findCurrentLogInfo = users.find(u => u.email === user?.email)
-    // if (findCurrentLogInfo) {
-    //     findCurrentLogInfo.role = 'Admin'
-    //     return [findCurrentLogInfo]
-    // }
     const { data: isUser } = useQuery({
         queryKey: [user?.email, 'isUser'],
         queryFn: async () => {
