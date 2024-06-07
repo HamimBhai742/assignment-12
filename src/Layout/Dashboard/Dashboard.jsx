@@ -6,6 +6,7 @@ import useUser from '../../hooks/useUser';
 import useAdmin from '../../hooks/useAdmin';
 import useCreator from '../../hooks/useCreator';
 import useUserRole from '../../hooks/useUserRole';
+import Footer from '../../Components/Footer/Footer';
 
 const Dashboard = () => {
     const { logOut, user } = useAuth()
