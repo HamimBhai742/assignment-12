@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const SubmitedContest = () => {
     const axiosSecure = useAxiosSecure()
-    const { data: submitContest = [] } = useQuery({
+    const { data: submitContest = [], refetch } = useQuery({
         queryKey: ['submitContest'],
         queryFn: async () => {
             const res = await axiosSecure.get('/submited-contest')
@@ -37,7 +37,7 @@ const SubmitedContest = () => {
         }
     }
 
-    const { data: subContest = [] } = useQuery({
+    const { data: subContest = [], refetch: reCall } = useQuery({
         queryKey: [currentPage, itemsPerPage, 'subContest'],
         queryFn: async () => {
             const results = await axiosSecure.get(`/submited-contest?page=${currentPage}&size=${itemsPerPage}`)
@@ -47,11 +47,24 @@ const SubmitedContest = () => {
     })
 
     console.log(submitContest);
-    const handelWinerbtn = (id, winerId) => {
+    const handelWinerbtn = async (id, winerId) => {
         const filterWiner = submitContest.filter(s => s.contestId === id)
         console.log(filterWiner);
         const findWiner = submitContest.find(f => f._id === winerId)
         console.log(findWiner);
+        const winerSelect = {
+            perticipantUserEmail: findWiner?.perticipantUserEmail,
+            perticipantUser: findWiner?.perticipantUser,
+            perticipateImg: findWiner?.perticipateImg
+
+        }
+        const res = await axiosSecure.post(`/contest-winer`, winerSelect)
+        console.log(res.data);
+        if (res.data.insertedId) {
+            const result = await axiosSecure.delete(`/contest-winer/${id}`)
+            console.log(result.data);
+            reCall()
+        }
     }
     return (
         <div>
