@@ -5,6 +5,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import usePayData from '../../../hooks/usePayData';
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
 
 const ViewDetails = () => {
   const [contest, refetch] = useContest()
@@ -20,6 +21,18 @@ const ViewDetails = () => {
   const deadLi = yy + "-" + mm + "-" + dd
   const deadLins = new Date(deadLi)
   const currDates = new Date()
+
+  const { data: contestWiner = [] } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/contest-winer')
+      return res.data
+    }
+  })
+  console.log(contestWiner);
+  const ff = contestWiner.find(s => s.contestsId === id)
+  console.log(ff,'gggggggggggggggggggg');
+
   const handelRegistration = (id) => {
     const findPay = payHistory.find(pay => pay.contestId === id)
     if (currDates >= deadLins) {

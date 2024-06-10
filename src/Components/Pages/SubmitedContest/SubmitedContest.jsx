@@ -55,16 +55,18 @@ const SubmitedContest = () => {
         const winerSelect = {
             perticipantUserEmail: findWiner?.perticipantUserEmail,
             perticipantUser: findWiner?.perticipantUser,
-            perticipateImg: findWiner?.perticipateImg
+            perticipateImg: findWiner?.perticipateImg,
+            contestsId: findWiner?.contestId
 
         }
-        const res = await axiosSecure.post(`/contest-winer`, winerSelect)
+        const res = await axiosSecure.post(`/contest-winer?id=${id}`, winerSelect)
         console.log(res.data);
-        if (res.data.insertedId) {
-            const result = await axiosSecure.delete(`/contest-winer/${id}`)
-            console.log(result.data);
-            reCall()
-        }
+        reCall()
+        // if (res.data.insertedId) {
+        //     const result = await axiosSecure.delete(`/contest-winer/${id}`)
+        //     console.log(result.data);
+
+        // }
     }
     return (
         <div>
