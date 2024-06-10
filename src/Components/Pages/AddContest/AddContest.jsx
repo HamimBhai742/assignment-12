@@ -29,11 +29,11 @@ const AddContest = () => {
             }
         })
         console.log(res.data.data.display_url);
-        const formattedData = {
-            ...data,
-            deadLine: format(data.deadLine, 'dd/MM/yyyy'),
-        };
-        console.log(formattedData.deadLine);
+        // const formattedData = {
+        //     ...data,
+        //     deadLine: format(data.deadLine, 'dd/MM/yyyy'),
+        // };
+        // console.log(formattedData.deadLine);
         const contestInfo = {
             contestName: data.contestName,
             contestImg: res.data.data.display_url,
@@ -41,7 +41,7 @@ const AddContest = () => {
             taskDetails: data.taskDeatils,
             contestTag: data.contestTag,
             contestPrice: data.contestPrice,
-            deadLine: formattedData.deadLine,
+            deadLine: data.deadLine,
             prizeMoney: data.prizeMoney,
             addUserEmail: user?.email
         }
@@ -124,7 +124,9 @@ const AddContest = () => {
                                         placeholderText="Select date"
                                         onChange={(date) => field.onChange(date)}
                                         selected={field.value}
-                                        dateFormat="dd/MM/yyyy"></DatePicker>
+                                        timeFormat="HH:mm"
+
+                                        dateFormat="MMMM d, yyyy h:mm aa"></DatePicker>
                                     )}>
 
                                 </Controller>

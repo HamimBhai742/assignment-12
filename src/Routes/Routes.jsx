@@ -18,6 +18,7 @@ import ManageContest from '../Components/Pages/ManageContest/ManageContest';
 import UpdateContest from '../Components/Pages/UpdateContest/UpdateContest';
 import Payment from '../Components/Pages/Payment/Payment';
 import Error from '../Components/Pages/Error/Error';
+import SubmitedContest from '../Components/Pages/SubmitedContest/SubmitedContest';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
             {
                 path: 'update-contest/:id',
                 element: <UpdateContest></UpdateContest>
+            },
+            {
+                path:'submited-contest',
+                element:<CreatorPrivateRoute><SubmitedContest></SubmitedContest></CreatorPrivateRoute>
             }
         ]
     }

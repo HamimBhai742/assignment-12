@@ -29,7 +29,7 @@ const Dashboard = () => {
                 {isUser && <NavLink to='/dashboard/my-profile'>My Profile</NavLink>}
                 {isCreator && <NavLink to='/dashboard/add-contest'>Add Contest</NavLink>}
                 {isCreator && <NavLink to='/dashboard/my-created-contest'>My Created Contest</NavLink>}
-                {isCreator && <NavLink to='/dashboard/contest-submitted'>Contest Submitted</NavLink>}
+                {isCreator && <NavLink to='/dashboard/submited-contest'>Contest Submitted</NavLink>}
                 {isAdmin && <NavLink to='/dashboard/manage-users'>Manage User</NavLink>}
                 {isAdmin && <NavLink to='/dashboard/manage-contest'>Manage Contests</NavLink>}
                 <button onClick={handelLogOutBtn} className='flex gap-2 items-center'>Logout <FaArrowRightFromBracket></FaArrowRightFromBracket></button>

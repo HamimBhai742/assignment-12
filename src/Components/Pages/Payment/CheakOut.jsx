@@ -93,6 +93,16 @@ const CheakOut = () => {
                 const result = await axiosPublic.patch(`/contest/${id}`, { count })
                 console.log(result.data);
                 refetch()
+                const submitContest = {
+                    title: findPayment?.contestName,
+                    prize: findPayment?.prizeMoney,
+                    perticipantUser: user?.displayName,
+                    perticipantUserEmail: user?.email,
+                    submitedTask: findPayment?.taskDetails
+                }
+                console.log(submitContest);
+                const submitRes = await axiosPublic.post(`/submited-contest`, submitContest)
+                console.log(submitRes.data);
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
