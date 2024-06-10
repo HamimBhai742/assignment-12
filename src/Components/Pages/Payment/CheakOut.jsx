@@ -94,10 +94,12 @@ const CheakOut = () => {
                 console.log(result.data);
                 refetch()
                 const submitContest = {
+                    contestId: id,
                     title: findPayment?.contestName,
                     prize: findPayment?.prizeMoney,
                     perticipantUser: user?.displayName,
                     perticipantUserEmail: user?.email,
+                    perticipateImg: user?.photoURL,
                     submitedTask: findPayment?.taskDetails
                 }
                 console.log(submitContest);

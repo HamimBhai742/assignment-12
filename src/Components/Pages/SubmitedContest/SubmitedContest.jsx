@@ -47,6 +47,12 @@ const SubmitedContest = () => {
     })
 
     console.log(submitContest);
+    const handelWinerbtn = (id, winerId) => {
+        const filterWiner = submitContest.filter(s => s.contestId === id)
+        console.log(filterWiner);
+        const findWiner = submitContest.find(f => f._id === winerId)
+        console.log(findWiner);
+    }
     return (
         <div>
             <table className="table">
@@ -71,7 +77,7 @@ const SubmitedContest = () => {
                             <td>{con.perticipantUser}</td>
                             <td>{con.perticipantUserEmail}</td>
                             <td>{con.submitedTask}</td>
-                            <td><button className='btn btn-accent'>Declared Win</button></td>
+                            <td><button onClick={() => handelWinerbtn(con?.contestId, con?._id)} className='btn btn-accent'>Declared Win</button></td>
                         </tr>)
                     }
                 </tbody>
