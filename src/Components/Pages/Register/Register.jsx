@@ -9,11 +9,13 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import useUser from '../../../hooks/useUser';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const Register = () => {
     const [showPass, setShowPass] = useState(false)
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const { registerUser, googleLogin, user } = useAuth()
+    const axiosPublic=useAxiosPublic()
     const [users, refetch] = useUser()
     const navigate = useNavigate()
     // const [errors, setError] = useState(errors)
@@ -31,7 +33,7 @@ const Register = () => {
                     status: "Active",
                     role: "User"
                 }
-                const res = await axios.post('http://localhost:5000/users', usersInfo)
+                const res = await axiosPublic.post('/users', usersInfo)
                 console.log(res.data);
                 if (res.data?.insertedId) {
                     reset()
@@ -68,7 +70,7 @@ const Register = () => {
                 }
                 if (!cheaker) {
                     console.log(usersInfo);
-                    const res = await axios.post('http://localhost:5000/users', usersInfo)
+                    const res = await axiosPublic.post('/users', usersInfo)
                     console.log(res.data);
 
                 }

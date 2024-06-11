@@ -6,12 +6,14 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import axios from 'axios';
 import useUser from '../../../hooks/useUser';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const Login = () => {
     const [users] = useUser()
     const [showPass, setShowPass] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { loginUser, googleLogin, user } = useAuth()
+    const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
     // const [errors, setError] = useState(errors)
     const onSubmit = async (data) => {
@@ -54,7 +56,7 @@ const Login = () => {
                 }
                 if (!cheaker) {
                     console.log(usersInfo);
-                    const res = await axios.post('http://localhost:5000/users', usersInfo)
+                    const res = await axiosPublic.post('/users', usersInfo)
                     console.log(res.data);
 
                 }
