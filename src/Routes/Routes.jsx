@@ -20,6 +20,7 @@ import Payment from '../Components/Pages/Payment/Payment';
 import Error from '../Components/Pages/Error/Error';
 import SubmitedContest from '../Components/Pages/SubmitedContest/SubmitedContest';
 import PayHistory from '../Components/Pages/PayHistory/PayHistory';
+import MyWinings from '../Components/Pages/MyWining/MyWinings';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
             {
                 path: 'my-perticipated',
                 element: <MyPerticipated></MyPerticipated>
+            },
+            {
+                path:'my-winings',
+                element:<MyWinings></MyWinings>
             },
             {
                 path: 'manage-users',

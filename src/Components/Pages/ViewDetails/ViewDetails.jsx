@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet';
+import trophee from '../../../assets/ddddddddddddddddd.png'
+import useConWiner from '../../../hooks/useConWiner';
 
 const ViewDetails = () => {
   const [contest, refetch] = useContest()
@@ -22,17 +24,18 @@ const ViewDetails = () => {
   const deadLi = yy + "-" + mm + "-" + dd
   const deadLins = new Date(deadLi)
   const currDates = new Date()
+  const [contestWiner] = useConWiner()
+  // const { data: contestWiner = [] } = useQuery({
+  //   queryKey: [],
+  //   queryFn: async () => {
+  //     const res = await axiosPublic.get('/contest-winer')
+  //     return res.data
+  //   }
+  // })
 
-  const { data: contestWiner = [] } = useQuery({
-    queryKey: [],
-    queryFn: async () => {
-      const res = await axiosPublic.get('/contest-winer')
-      return res.data
-    }
-  })
   console.log(contestWiner);
-  const ff = contestWiner.find(s => s.contestsId === id)
-  console.log(ff, 'gggggggggggggggggggg');
+  const winer = contestWiner.find(s => s.contestsId === id)
+  // console.log(ff, 'gggggggggggggggggggg');
 
   const handelRegistration = (id) => {
     const findPay = payHistory.find(pay => pay.contestId === id)
@@ -48,7 +51,7 @@ const ViewDetails = () => {
     navigate(`/payment/${id}`)
   }
   return (
-    <div className='mt-28 flex mx-5 gap-5'>
+    <div className='mt-28 flex flex-col mx-5 gap-5'>
       <Helmet>
         <title>View Details</title>
       </Helmet>
@@ -58,7 +61,14 @@ const ViewDetails = () => {
         <p>{findContest?.contestDes}</p>
         <p><span className='font-semibold'>Participants:</span> {findContest?.participantsCount || 0}</p>
         <p><span className='font-semibold'>Prize:</span> {findContest?.prizeMoney}</p>
-        <p><span className='font-semibold'>Deadline:</span> {findContest?.deadLine}</p>
+        {winer && <div className='flex my-3 gap-3 items-center'>
+          <div className='relative'>
+            <img className='w-16 h-16 rounded-full' src={winer?.perticipateImg} alt="" />
+            <img className='w-8 h-8 absolute -top-2 -left-1  border-2 bg-white p-1 border-green-600 rounded-full' src={trophee} alt="" />
+          </div>
+          <h3 className='font-lato text-3xl font-bold'>{winer?.perticipantUser}</h3>
+        </div>}
+        <p><span className='font-semibold'>Deadline:</span> {currDates >= deadLins ? 'Not available' : findContest?.deadLine}</p>
         <button onClick={() => handelRegistration(findContest?._id)} className='btn btn-accent'>Registration</button>
       </div>
     </div>

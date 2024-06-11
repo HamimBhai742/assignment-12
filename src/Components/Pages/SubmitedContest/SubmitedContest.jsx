@@ -3,16 +3,19 @@ import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Helmet } from 'react-helmet';
+import SubmCard from './SubmCard';
+import useSubmit from '../../../hooks/useSubmit';
 
 const SubmitedContest = () => {
     const axiosSecure = useAxiosSecure()
-    const { data: submitContest = [], refetch } = useQuery({
-        queryKey: ['submitContest'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/submited-contest')
-            return res.data
-        }
-    })
+    // const { data: submitContest = [], refetch } = useQuery({
+    //     queryKey: ['submitContest'],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get('/submited-contest')
+    //         return res.data
+    //     }
+    // })
+    const [submitContest] = useSubmit()
     const [itemsPerPage, setItemsPerPage] = useState(10)
     const [currentPage, setCurrentPage] = useState(0)
     const numberOfPages = Math.ceil(submitContest?.length / itemsPerPage)
@@ -70,37 +73,16 @@ const SubmitedContest = () => {
         // }
     }
     return (
-        <div>
-             <Helmet>
+        <div className='m-5 '>
+            <Helmet>
                 <title>Submitted Contest</title>
             </Helmet>
-            <table className="table">
-                {/* head */}
-                <thead className='font-inter text-slate-800'>
-                    <tr>
-                        <th>Sl.</th>
-                        <th>Title</th>
-                        <th>Prize</th>
-                        <th>Perticipants User</th>
-                        <th>Perticipants Email</th>
-                        <th>Submit Task</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody className='font-inter'>
-                    {
-                        subContest.map((con, idx) => <tr key={idx}>
-                            <th>{idx + 1}</th>
-                            <td>{con.title}</td>
-                            <td>{con.prize}</td>
-                            <td>{con.perticipantUser}</td>
-                            <td>{con.perticipantUserEmail}</td>
-                            <td>{con.submitedTask}</td>
-                            <td><button onClick={() => handelWinerbtn(con?.contestId, con?._id)} className='btn btn-accent'>Declared Win</button></td>
-                        </tr>)
-                    }
-                </tbody>
-            </table>
+
+            <div className='grid grid-cols-2 gap-5'>
+                {
+                    subContest.map((sm, idx) => <SubmCard reCall={reCall} sm={sm} key={idx}></SubmCard>)
+                }
+            </div>
             <div className='text-center flex gap-5 items-center justify-center my-5'>
                 <button onClick={handelPrevBtn}><div className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowBack></IoIosArrowBack></div></button>
                 <div className='flex gap-3 '>
@@ -110,7 +92,7 @@ const SubmitedContest = () => {
                 </div>
                 <button onClick={handelNextBtn}><span className='text-xl flex items-center justify-center border-[2px] hover:bg-blue-500 border-blue-500 w-10 h-10 rounded-full'><IoIosArrowForward></IoIosArrowForward></span></button>
                 <select onChange={handelSelectedBtn} defaultValue={itemsPerPage} className=' border-2 h-10 w-28 font-medium font-inter border-slate-600 rounded-lg px-1' id="">
-                    <option value="5">5 / Page</option>
+                    <option value="6">6/ Page</option>
                     <option value="10">10 / Page</option>
                     <option value="20">20 / Page</option>
                     <option value="30">50 / Page</option>

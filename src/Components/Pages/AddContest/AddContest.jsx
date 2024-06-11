@@ -34,7 +34,7 @@ const AddContest = () => {
             ...data,
             deadLine: format(data.deadLine, 'dd/MM/yyyy'),
         };
-        console.log(formattedData.deadLine);
+        console.log(data.deadLine);
         const contestInfo = {
             contestName: data.contestName,
             contestImg: res.data.data.display_url,
@@ -44,9 +44,10 @@ const AddContest = () => {
             contestPrice: data.contestPrice,
             deadLine: formattedData?.deadLine,
             prizeMoney: data.prizeMoney,
-            addUserEmail: user?.email
+            addUserEmail: user?.email,
+            sortByDate: data.deadLine
         }
-        console.log(contestInfo);
+        // console.log(contestInfo);
         const result = await axiosSecure.post('/contest', contestInfo)
         console.log(result.data);
         if (result.data.insertedId) {
@@ -64,7 +65,7 @@ const AddContest = () => {
     }
     return (
         <section className="dark:bg-gray-100 dark:text-gray-900 bg-teal-100 rounded-lg mx-16 my-6">
-             <Helmet>
+            <Helmet>
                 <title>Add Contest</title>
             </Helmet>
             <div className="space-y-2 col-span-full lg:col-span-1 text-center pt-5">
@@ -128,7 +129,7 @@ const AddContest = () => {
                                         placeholderText="Select date"
                                         onChange={(date) => field.onChange(date)}
                                         selected={field.value}
-                                        
+
                                         // timeFormat="HH:mm"
                                         dateFormat="dd/MM/yy"></DatePicker>
                                     )}>

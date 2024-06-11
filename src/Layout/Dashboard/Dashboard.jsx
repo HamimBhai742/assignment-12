@@ -29,7 +29,7 @@ const Dashboard = () => {
             <aside id='sidebar' className="flex flex-col fixed w-64 h-screen px-6 py-8 overflow-y-auto text-white font-lato gap-3 bg-slate-900 border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
                 <NavLink to='/'>Home</NavLink>
                 {isUser && <NavLink to='/dashboard/my-perticipated'>My Participated</NavLink>}
-                {isUser && <NavLink to='/dashboard/my-winning'>My Winning</NavLink>}
+                {isUser && <NavLink to='/dashboard/my-winings'>My Winning</NavLink>}
                 {isUser && <NavLink to='/dashboard/my-profile'>My Profile</NavLink>}
                 {isCreator && <NavLink to='/dashboard/add-contest'>Add Contest</NavLink>}
                 {isCreator && <NavLink to='/dashboard/my-created-contest'>My Created Contest</NavLink>}

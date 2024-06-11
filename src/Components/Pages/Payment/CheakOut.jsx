@@ -100,7 +100,9 @@ const CheakOut = () => {
                     perticipantUser: user?.displayName,
                     perticipantUserEmail: user?.email,
                     perticipateImg: user?.photoURL,
-                    submitedTask: findPayment?.taskDetails
+                    submitedTask: findPayment?.taskDetails,
+                    deadlines: findPayment?.deadLine,
+                    sortByDates: findPayment?.sortByDate
                 }
                 console.log(submitContest);
                 const submitRes = await axiosPublic.post(`/submited-contest`, submitContest)
