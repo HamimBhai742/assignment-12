@@ -6,6 +6,7 @@ import usePayData from '../../../hooks/usePayData';
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet';
 
 const ViewDetails = () => {
   const [contest, refetch] = useContest()
@@ -31,7 +32,7 @@ const ViewDetails = () => {
   })
   console.log(contestWiner);
   const ff = contestWiner.find(s => s.contestsId === id)
-  console.log(ff,'gggggggggggggggggggg');
+  console.log(ff, 'gggggggggggggggggggg');
 
   const handelRegistration = (id) => {
     const findPay = payHistory.find(pay => pay.contestId === id)
@@ -48,7 +49,9 @@ const ViewDetails = () => {
   }
   return (
     <div className='mt-28 flex mx-5 gap-5'>
-
+      <Helmet>
+        <title>View Details</title>
+      </Helmet>
       <img src={findContest?.contestImg} className='rounded-lg' alt="" />
       <div className='font-inter'>
         <h3 className='font-lato text-3xl font-bold'>{findContest?.contestName}</h3>

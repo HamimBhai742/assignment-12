@@ -8,6 +8,7 @@ import { FaEdit } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Helmet } from 'react-helmet';
 
 const MyCreatedContest = () => {
     const [contest, reCall] = useContest()
@@ -93,6 +94,9 @@ const MyCreatedContest = () => {
     }
     return (
         <div className='flex mx-5 gap-5 mt-8'>
+             <Helmet>
+                <title>My Created Contest</title>
+            </Helmet>
             <div className="overflow-x-auto">
                 <div className="flex items-center gap-x-3 mb-5">
                     <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total My Created Contest</h2>

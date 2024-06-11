@@ -8,6 +8,7 @@ import { FaArrowLeft, FaArrowRight, FaRegComment } from 'react-icons/fa6';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useQuery } from '@tanstack/react-query';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Helmet } from 'react-helmet';
 
 const ManageContest = () => {
     const [contest,reCall] = useContest()
@@ -138,6 +139,9 @@ const ManageContest = () => {
     // console.log(typeof count);
     return (
         <div className='ml-16 mt-8'>
+            <Helmet>
+                <title>Manage Contest</title>
+            </Helmet>
             <div className="flex items-center gap-x-3">
                 <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Contest</h2>
 

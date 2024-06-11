@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Helmet } from 'react-helmet';
 
 const SubmitedContest = () => {
     const axiosSecure = useAxiosSecure()
@@ -70,6 +71,9 @@ const SubmitedContest = () => {
     }
     return (
         <div>
+             <Helmet>
+                <title>Submitted Contest</title>
+            </Helmet>
             <table className="table">
                 {/* head */}
                 <thead className='font-inter text-slate-800'>

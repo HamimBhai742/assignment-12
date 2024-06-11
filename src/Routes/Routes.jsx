@@ -19,6 +19,7 @@ import UpdateContest from '../Components/Pages/UpdateContest/UpdateContest';
 import Payment from '../Components/Pages/Payment/Payment';
 import Error from '../Components/Pages/Error/Error';
 import SubmitedContest from '../Components/Pages/SubmitedContest/SubmitedContest';
+import PayHistory from '../Components/Pages/PayHistory/PayHistory';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path:'/payment/:id',
                 element:<Payment></Payment>
+            },
+            {
+                path:'/pay-history',
+                element:<PayHistory></PayHistory>
             }
         ]
 

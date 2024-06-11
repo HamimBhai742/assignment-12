@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import useUser from '../../../hooks/useUser';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
     const [showPass, setShowPass] = useState(false)
@@ -108,6 +109,9 @@ const Register = () => {
     }
     return (
         <div className='mt-32 mb-5'>
+             <Helmet>
+                <title>Sign Up</title>
+            </Helmet>
             <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-[1170px]">
                 <div className="hidden relative bg-cover lg:block lg:w-[650px] bbgg1">
                     <div className='text-center absolute top-56 left-28'>

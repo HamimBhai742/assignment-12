@@ -8,6 +8,7 @@ import useAdmin from '../../../hooks/useAdmin';
 import useCreator from '../../../hooks/useCreator';
 import useContest from '../../../hooks/useContest';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
     const [isAdmin] = useAdmin()
@@ -33,6 +34,9 @@ const Home = () => {
 
     return (
         <div className='mt-28 mx-5 z-10'>
+            <Helmet>
+                <title>Home</title>
+            </Helmet>
             <div className='bgbnner1 h-[400px] w-full rounded-md relative'>
                 <div className='w-96 absolute top-44 left-96'>
                     <label className="input input-bordered flex items-center gap-2">

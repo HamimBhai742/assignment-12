@@ -7,6 +7,7 @@ import axios from 'axios';
 import useUser from '../../../hooks/useUser';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
     const [users] = useUser()
@@ -79,6 +80,9 @@ const Login = () => {
     }
     return (
         <div className='mt-28'>
+            <Helmet>
+                <title>Sign In</title>
+            </Helmet>
             <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-[1170px]">
                 <div className="hidden bg-cover lg:block lg:w-[650px] relative bbgg">
                     <div className='text-center absolute top-44 left-28'>

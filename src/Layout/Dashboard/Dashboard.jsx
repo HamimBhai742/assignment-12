@@ -7,6 +7,7 @@ import useAdmin from '../../hooks/useAdmin';
 import useCreator from '../../hooks/useCreator';
 import useUserRole from '../../hooks/useUserRole';
 import Footer from '../../Components/Footer/Footer';
+import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
     const { logOut, user } = useAuth()
@@ -22,6 +23,9 @@ const Dashboard = () => {
     }
     return (
         <div className='flex gap-5'>
+             <Helmet>
+                <title>Dashboard</title>
+            </Helmet>
             <aside id='sidebar' className="flex flex-col fixed w-64 h-screen px-6 py-8 overflow-y-auto text-white font-lato gap-3 bg-slate-900 border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
                 <NavLink to='/'>Home</NavLink>
                 {isUser && <NavLink to='/dashboard/my-perticipated'>My Participated</NavLink>}

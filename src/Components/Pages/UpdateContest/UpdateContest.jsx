@@ -9,6 +9,7 @@ import useAuth from '../../../hooks/useAuth';
 import { Controller, useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 const API_KEY = import.meta.env.VITE_IMAGE_API_KEY
@@ -87,6 +88,9 @@ const UpdateContest = () => {
     }
     return (
         <section className="dark:bg-gray-100 dark:text-gray-900 bg-sky-100 rounded-lg mx-16 my-6">
+            <Helmet>
+                <title>Update Contest</title>
+            </Helmet>
             <div className="space-y-2 col-span-full lg:col-span-1 text-center pt-5">
                 <p className="font-cinzel text-4xl font-bold">Add Contest</p>
                 <p className="text-xs max-w-96 mx-auto font-inter">Add your favorite contest.Mention the price along with the contest.Also mention the date line of adding the contest.</p>

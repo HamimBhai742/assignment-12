@@ -10,6 +10,7 @@ import useUser from "../../../hooks/useUser";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Helmet } from "react-helmet";
 
 const ManageUser = () => {
     const [users,reUse] = useUser()
@@ -191,6 +192,9 @@ const ManageUser = () => {
     }
     return (
         <section className="container px-4 mt-5 max-w-[900px] ml-12">
+             <Helmet>
+                <title>Manage User</title>
+            </Helmet>
             <div className="flex justify-around">
                 <div className="flex items-center gap-x-3">
                     <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total User</h2>

@@ -4,6 +4,7 @@ import AllContestCard from './AllContestCard';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const AllContests = () => {
     const [contest] = useContest()
@@ -23,6 +24,9 @@ const AllContests = () => {
     const currentDateAndTime = currentDate + " " + currentTime
     return (
         <div className='mt-28 mx-5'>
+             <Helmet>
+                <title>All Contest</title>
+            </Helmet>
             <div className='bbrr w-full min-h-[520px] mb-8 rounded-lg relative'>
                 <h3 className='absolute font-cinzel text-7xl font-extrabold text-violet-800 left-[550px] top-36'>RAFFLE</h3>
                 <h3 className='absolute font-cinzel text-6xl font-extrabold text-violet-800 left-[580px] top-56'>CONTEST</h3>
