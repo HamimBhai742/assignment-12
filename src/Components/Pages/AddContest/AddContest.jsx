@@ -77,12 +77,12 @@ const AddContest = () => {
 
     }
     return (
-        <section className="dark:bg-gray-100 dark:text-gray-900 bg-teal-100 rounded-lg mx-16 my-6">
+        <section className="dark:bg-gray-100 dark:text-gray-900 max-sm:w-[350px] mx3 bg-teal-100 rounded-lg lg:mx-16 my-6">
             <Helmet>
                 <title>Add Contest</title>
             </Helmet>
             <div className="space-y-2 col-span-full lg:col-span-1 text-center pt-5">
-                <p className="font-cinzel text-4xl font-bold">Add Contest</p>
+                <p className="font-cinzel lg:text-4xl text-2xl font-bold">Add Contest</p>
                 <p className="text-xs max-w-96 mx-auto font-inter">Add your favorite contest.Mention the price along with the contest.Also mention the date line of adding the contest.</p>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} noValidate="" action="" className="container p-6 font-lato">
@@ -138,7 +138,7 @@ const AddContest = () => {
                                     name='deadLine'
                                     control={control}
                                     defaultValue={null}
-                                    render={({ field }) => (<DatePicker className='h-12 w-80 pl-3 rounded-md'
+                                    render={({ field }) => (<DatePicker className='h-12 md:w-80 pl-3 rounded-md'
                                         placeholderText="Select date"
                                         onChange={(date) => field.onChange(date)}
                                         selected={field.value}

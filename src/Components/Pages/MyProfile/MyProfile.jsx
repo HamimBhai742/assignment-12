@@ -57,13 +57,13 @@ const MyProfile = () => {
     // console.log(user.displayName);
     // console.log(user.photoURL);
     return (
-        <div className='m-8 flex gap-5'>
+        <div className='m-8 flex max-sm:flex-col gap-5'>
             <Helmet>
                 <title>My Profile</title>
             </Helmet>
             <div>
-                <div className="p-8 sm:flex h-48 sm:space-x-6 rounded-lg bg-blue-100 dark:bg-gray-50 dark:text-gray-800">
-                    <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+                <div className="p-8 flex gap-3 h-48 sm:space-x-6 rounded-lg bg-blue-100 dark:bg-gray-50 dark:text-gray-800">
+                    <div className="flex-shrink-0 lg:w-full mb-6 lg:h-44 h-20 w-20">
                         <img src={myPro?.photoUrl} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
                     </div>
                     <div className="flex flex-col space-y-4">
@@ -85,7 +85,7 @@ const MyProfile = () => {
                 </div>
             </div>
             {edit && <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mt-4 w-[420px]">
+                <div className="mt-4 md:w-[420px]">
                     <label className="block mb-2 text-sm font-inter font-bold text-gray-600 dark:text-gray-200">Name</label>
                     <input {...register('name', { required: true })} placeholder='Your Name' className="block h-12 w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 border-gray-300" type="text" />
                     <label className="block mb-2 text-sm font-inter font-bold text-gray-600 dark:text-gray-200">Photo URL</label>

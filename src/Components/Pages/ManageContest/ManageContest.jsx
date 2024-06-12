@@ -143,7 +143,7 @@ const ManageContest = () => {
                 <title>Manage Contest</title>
             </Helmet>
             <div className="flex items-center gap-x-3">
-                <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Contest</h2>
+                <h2 className="md:text-2xl text-xl text-gray-800 dark:text-white font-lato font-bold">Total Contest</h2>
 
                 <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{contest?.length}</span>
             </div>

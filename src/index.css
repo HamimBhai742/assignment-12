@@ -17,6 +17,7 @@
 .active {
   border-bottom: solid 2px royalblue;
   color: rgb(7, 7, 206);
+  width: fit-content;
 }
 
 #sidebar .active {

@@ -189,28 +189,28 @@ const ManageUser = () => {
         // }
     }
     return (
-        <section className="container px-4 mt-5 max-w-[900px] ml-12">
+        <section className="container px-4 mt-5 md:max-w-[900px] ml-12">
              <Helmet>
                 <title>Manage User</title>
             </Helmet>
             <div className="flex justify-around">
                 <div className="flex items-center gap-x-3">
-                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total User</h2>
+                    <h2 className="md:text-2xl text-xl text-gray-800 dark:text-white font-lato font-bold">Total User</h2>
 
                     <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{totalUser?.length}</span>
                 </div>
                 <div className="flex items-center gap-x-3">
-                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Creator</h2>
+                    <h2 className="md:text-2xl text-xl text-gray-800 dark:text-white font-lato font-bold">Total Creator</h2>
 
                     <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{totalCreator?.length}</span>
                 </div>
                 <div className="flex items-center gap-x-3">
-                    <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Admin</h2>
+                    <h2 className="md:text-2xl text-xl text-gray-800 dark:text-white font-lato font-bold">Total Admin</h2>
 
                     <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{totalAdmin?.length}</span>
                 </div>
             </div>
-            <table className="table-auto w-[880px] bg-white rounded-t-xl shadow mt-6">
+            <table className="table-auto lg:w-[880px] bg-white rounded-t-xl shadow mt-6">
                 <thead>
                     <tr className=" text-gray-700 font-inter text-sm leading-normal">
                         <th className="py-3 px-6 bg-slate-300 rounded-tl-lg">Sl.</th>

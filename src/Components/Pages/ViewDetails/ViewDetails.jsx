@@ -80,11 +80,11 @@ const ViewDetails = () => {
   console.log(isAdmin);
   console.log(isCreator);
   return (
-    <div className='mt-28 flex flex-col mx-5 gap-5'>
+    <div className='md:mt-28 flex flex-col md:mx-5 gap-5 mt-16 mx-3'>
       <Helmet>
         <title>View Details</title>
       </Helmet>
-      <img src={findContest?.contestImg} className='rounded-lg h-[800px]' alt="" />
+      <img src={findContest?.contestImg} className='rounded-lg md:h-[800px] h-[500px]' alt="" />
       <div className='font-inter space-y-2'>
         <h3 className='font-lato text-3xl font-bold'>{findContest?.contestName}</h3>
         <p>{findContest?.contestDes}</p>

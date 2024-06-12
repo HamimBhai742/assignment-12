@@ -90,7 +90,7 @@ const SubmitedContest = () => {
                 <title>Submitted Contest</title>
             </Helmet>
 
-            <div className='grid grid-cols-2 gap-5'>
+            <div className='grid md:grid-cols-2 gap-5'>
                 {
                     subContest.map((sm, idx) => <SubmCard reCall={reCall} sm={sm} key={idx}></SubmCard>)
                 }

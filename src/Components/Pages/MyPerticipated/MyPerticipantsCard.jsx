@@ -5,7 +5,7 @@ const MyPerticipantsCard = ({ myPer }) => {
         <div className='mx-5'>
             <div className="max-w-2xl px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <div className="flex items-center gap-10 font-inter">
-                    <span className="text-sm font-light text-gray-600 dark:text-gray-400"><span className='text-black font-semibold'>Deadline:</span> {myPer?.deadlines}</span>
+                    <span className="text-sm font-light text-gray-600 dark:text-gray-400"><span className='text-black font-semibold max-sm:text-sm'>Deadline:</span> {myPer?.deadlines}</span>
                     <p><span className='font-semibold'>Payment Status:</span> <span className='text-green-600'>Complete</span></p>
                 </div>
 

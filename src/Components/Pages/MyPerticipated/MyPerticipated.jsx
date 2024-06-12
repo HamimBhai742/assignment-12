@@ -36,7 +36,7 @@ const MyPerticipated = () => {
                     <option>My Upcoming Contest</option>
                 </select>
             </div>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid md:grid-cols-2 gap-3'>
                 {
                     myPerticipant.map((myPer, idx) => <MyPerticipantsCard key={idx} myPer={myPer}></MyPerticipantsCard>)
                 }

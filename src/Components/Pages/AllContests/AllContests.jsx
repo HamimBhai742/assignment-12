@@ -23,11 +23,11 @@ const AllContests = () => {
     const currentDate = new Date().toISOString().slice(0, 10).split('-').reverse().join('-')
     const currentDateAndTime = currentDate + " " + currentTime
     return (
-        <div className='mt-28 mx-5'>
+        <div className='md:mt-28 md:mx-5 mx-3 mt-16'>
              <Helmet>
                 <title>All Contest</title>
             </Helmet>
-            <div className='bbrr w-full min-h-[520px] mb-8 rounded-lg relative'>
+            <div className='bbrr max-sm:hidden w-full min-h-[520px] mb-8 rounded-lg relative'>
                 <h3 className='absolute font-cinzel text-7xl font-extrabold text-violet-800 left-[550px] top-36'>RAFFLE</h3>
                 <h3 className='absolute font-cinzel text-6xl font-extrabold text-violet-800 left-[580px] top-56'>CONTEST</h3>
                 <div className=" text-white grid-flow-col gap-5 text-center auto-cols-max absolute left-[580px] top-[300px]">
@@ -36,7 +36,7 @@ const AllContests = () => {
                 <Link className='absolute font-lato text-4xl font-bold text-white left-[650px] top-96' to='/login'>Join Now</Link>
             </div>
             <Tabs>
-                <TabList>
+                <TabList className='text-sm'>
                     <Tab>Marketing Strategy</Tab>
                     <Tab>Business Idea Concerts</Tab>
                     <Tab>Gaming Review</Tab>
@@ -47,49 +47,49 @@ const AllContests = () => {
                 </TabList>
 
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid md:grid-cols-3 max-sm:mt-5 grid-cols-1 gap-5'>
                         {
                             marketing.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid md:grid-cols-3 max-sm:mt-5 grid-cols-1 gap-5'>
                         {
                             business.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid md:grid-cols-3 max-sm:mt-5 grid-cols-1 gap-5'>
                         {
                             gaming.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid md:grid-cols-3 max-sm:mt-5 grid-cols-1 gap-5'>
                         {
                             movie.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid md:grid-cols-3 max-sm:mt-5 grid-cols-1 gap-5'>
                         {
                             digital.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid md:grid-cols-3 max-sm:mt-5 grid-cols-1 gap-5'>
                         {
                             article.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='grid grid-cols-3 gap-5'>
+                    <div className='grid grid-cols-3 max-sm:mt-5 gap-5'>
                         {
                             image.map((contests, idx) => <AllContestCard contests={contests} key={idx}></AllContestCard>)
                         }

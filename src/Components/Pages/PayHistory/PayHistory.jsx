@@ -44,13 +44,13 @@ const PayHistory = () => {
     })
     console.log(perPagePayHis);
     return (
-        <div className='mt-28 '>
+        <div className='md:mt-28 mt-16 max-sm:mx-3'>
             <div className="flex items-center gap-x-3 justify-center">
                 <h2 className="text-2xl text-gray-800 dark:text-white font-lato font-bold">Total Payment</h2>
 
                 <span className="px-3 py-1  text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400 font-bold">{payHis?.length}</span>
             </div>
-            <table className="table-auto mx-auto w-[1170px] bg-white rounded-t-xl shadow mt-6">
+            <table className="table-auto mx-auto  lg:w-[1170px] bg-white rounded-t-xl shadow mt-6">
                 <thead>
                     <tr className=" text-gray-700 font-inter text-sm leading-normal">
                         <th className="py-3 text-center px-6 bg-slate-300 rounded-tl-lg">Sl.</th>
