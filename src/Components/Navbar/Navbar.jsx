@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import img11 from '../../assets/Black Gold Elegant Initial Name Beauty and Spa Logo.png'
+import img11 from '../../assets/LOGO.png'
 import useAuth from '../../hooks/useAuth';
 import { Link, NavLink } from 'react-router-dom';
 import { theme } from 'antd';

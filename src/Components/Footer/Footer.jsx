@@ -1,14 +1,14 @@
 import React from 'react';
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa6';
-import img11 from '../../assets/Black Gold Elegant Initial Name Beauty and Spa Logo.png'
+import img11 from '../../assets/LOGO.png'
 
 const Footer = () => {
     return (
         <footer className="bg-gray-800 mt-8">
         <div className="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
             <a className=' flex gap-3 items-center'>
-                <img className="w-auto h-8" src={img11} alt="" />
-                <h3 className='lg:text-4xl md:text-2xl font-bold font-palyfair text-white text-3xl'>Contest Carze</h3>
+                <img className="w-auto h-14 rounded-full" src={img11} alt="" />
+                <h3 className='lg:text-4xl md:text-2xl font-bold font-cinzel text-sky-500 text-3xl'>Contest Carze</h3>
             </a>
 
             <p className="text-sm text-gray-400 pt-6">© Copyright 2023. All Rights Reserved.</p>
