@@ -1,6 +1,7 @@
 import React from 'react';
 import useConWiner from '../../../hooks/useConWiner';
 import useAuth from '../../../hooks/useAuth';
+import MyWiningCard from './MyWiningCard';
 
 const MyWinings = () => {
     const { user } = useAuth()
@@ -10,7 +11,9 @@ const MyWinings = () => {
     console.log(myWining);
     return (
         <div>
-
+            {
+                myWining.map((myWin,idx) => <MyWiningCard key={idx} myWin={myWin}></MyWiningCard>)
+            }
         </div>
     );
 };

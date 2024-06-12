@@ -7,6 +7,9 @@ import { GrEdit } from 'react-icons/gr';
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import useSubmit from '../../../hooks/useSubmit';
+import useConWiner from '../../../hooks/useConWiner';
+
 
 const MyProfile = () => {
     const { user, updateUserProfile } = useAuth()
@@ -15,6 +18,14 @@ const MyProfile = () => {
     const myPro = users.find(us => us.email === user?.email)
     const [edit, setEdit] = useState(false)
     const currentUser = users.find(cu => cu?.email === user?.email)
+    const [submitContest] = useSubmit()
+    const [contestWiner] = useConWiner()
+    const myPer = submitContest.filter(my => my?.perticipantUserEmail === user?.email)
+    const myPerWin = contestWiner?.filter(my => my?.perticipantUserEmail === user?.email)
+    console.log(typeof myPer.length, typeof myPerWin.length);
+    let pogress = myPer.length / myPerWin.length
+    console.log(pogress);
+    console.log(myPer);
     const handeleEditBtn = () => {
         if (currentUser?.status === 'Block') {
             Swal.fire({
@@ -28,7 +39,7 @@ const MyProfile = () => {
     }
     console.log(edit);
     const axiosPublic = useAxiosPublic()
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, reset } = useForm()
     const onSubmit = async (data) => {
         console.log(data);
         updateUserProfile(data.name, data.photourl)
@@ -39,39 +50,42 @@ const MyProfile = () => {
         }
         const res = await axiosPublic.patch(`/users/${user?.email}`, updateUsers)
         console.log(res.data);
+        reset()
         setEdit(false)
         reUse()
     }
-    console.log(user.displayName);
-    console.log(user.photoURL);
+    // console.log(user.displayName);
+    // console.log(user.photoURL);
     return (
-        <div>
+        <div className='m-8 flex gap-5'>
             <Helmet>
                 <title>My Profile</title>
             </Helmet>
-            <div className="max-w-md p-8 sm:flex sm:space-x-6 bg-blue-100 dark:bg-gray-50 dark:text-gray-800">
-                <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
-                    <img src={myPro?.photoUrl} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
-                </div>
-                <div className="flex flex-col space-y-4">
-                    <div>
-                        <h2 className="text-2xl font-semibold">{myPro?.name}</h2>
-                        <span className="text-sm dark:text-gray-600">{myPro?.email}</span>
+            <div>
+                <div className="p-8 sm:flex h-48 sm:space-x-6 rounded-lg bg-blue-100 dark:bg-gray-50 dark:text-gray-800">
+                    <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+                        <img src={myPro?.photoUrl} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
                     </div>
-                    <div className="space-y-1">
-                        <p>
-                            {
-                                myPro?.address
-                            }
-                        </p>
+                    <div className="flex flex-col space-y-4">
+                        <div>
+                            <h2 className="text-2xl font-semibold">{myPro?.name}</h2>
+                            <span className="text-sm dark:text-gray-600">{myPro?.email}</span>
+                        </div>
+                        <div className="space-y-1">
+                            <p>
+                                {
+                                    myPro?.address
+                                }
+                            </p>
+                        </div>
                     </div>
+                    <button onClick={handeleEditBtn} className={edit ? 'text-2xl text-blue-700' : 'text-2xl'}>
+                        <GrEdit></GrEdit>
+                    </button>
                 </div>
-                <button onClick={handeleEditBtn} className={edit ? 'text-2xl text-blue-700' : 'text-2xl'}>
-                    <GrEdit></GrEdit>
-                </button>
             </div>
             {edit && <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mt-4">
+                <div className="mt-4 w-[420px]">
                     <label className="block mb-2 text-sm font-inter font-bold text-gray-600 dark:text-gray-200">Name</label>
                     <input {...register('name', { required: true })} placeholder='Your Name' className="block h-12 w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 border-gray-300" type="text" />
                     <label className="block mb-2 text-sm font-inter font-bold text-gray-600 dark:text-gray-200">Photo URL</label>

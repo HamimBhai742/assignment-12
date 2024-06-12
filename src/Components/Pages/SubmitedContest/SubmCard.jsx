@@ -30,14 +30,14 @@ const SubmCard = ({ sm, reCall }) => {
         const deadLi = yy + "-" + mm + "-" + dd
         const deadLins = new Date(deadLi)
         const currDates = new Date()
-        // if (currDates <= deadLins) {
-        //     Swal.fire({
-        //         icon: "error",
-        //         title: "Oops...",
-        //         text: "You cannot declare a winner. Because your contest deadline is not over!",
-        //     });
-        //     return
-        // }
+        if (currDates <= deadLins) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You cannot declare a winner. Because your contest deadline is not over!",
+            });
+            return
+        }
         const flterSecelt = submitContest.filter(w => w.contestId === id)
         // console.log(flterSecelt);
         const findWiner = submitContest.find(f => f._id === winerId)

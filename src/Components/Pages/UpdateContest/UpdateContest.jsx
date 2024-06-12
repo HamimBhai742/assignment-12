@@ -58,6 +58,7 @@ const UpdateContest = () => {
             prizeMoney: data.prizeMoney,
             addUserEmail: user?.email
         }
+        console.log(updateInfo);
         const result = await axiosPublic.patch(`/my-contest/update/${id}`, updateInfo)
         if (result.data.modifiedCount > 0) {
             Swal.fire({

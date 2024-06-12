@@ -11,10 +11,6 @@ import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
     const { logOut, user } = useAuth()
-    // const [users] = useUser()
-    // console.log(users);
-    // const findCurrentLogInfo = users.find(u => u.email === user?.email)
-    // console.log(user);
     const [isAdmin] = useAdmin()
     const [isCreator] = useCreator()
     const [isUser] = useUserRole()

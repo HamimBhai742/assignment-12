@@ -56,8 +56,8 @@ const Navbar = () => {
                                     <NavLink to='/' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Home</NavLink>
                                     <NavLink to='/all-contests' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">All
                                         contests</NavLink>
-                                    <NavLink to='/pay-history' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Payment History</NavLink>
-                                    <NavLink to='/leaderbaord' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Leader Board</NavLink>
+                                    {user && <NavLink to='/pay-history' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Payment History</NavLink>}
+                                    {user && <NavLink to='/leaderbaord' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Leader Board</NavLink>}
                                 </div>
                                 <div className='mx-6'>
                                     <label onChange={handelgg} className="swap swap-rotate">
@@ -80,7 +80,7 @@ const Navbar = () => {
                                                 <img className="w-14 h-14 rounded-full" src={user?.photoURL} />
                                             </div>
                                         </div>
-                                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                        <ul tabIndex={0} className="menu text-black menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-36">
                                             {/* <li>
                                             <a className="justify-between">
                                                 Profile

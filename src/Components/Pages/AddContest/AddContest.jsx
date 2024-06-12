@@ -109,8 +109,8 @@ const AddContest = () => {
                             <textarea {...register('taskDeatils')} placeholder=' Details of Task....' className="w-full pt-1 pl-3 h-20 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300"></textarea>
                         </div>
                         <div className="col-span-full sm:col-span-3">
-                            <label className="text-sm font-semibold">Prize Money</label>
-                            <input {...register('prizeMoney')} type="number" placeholder="Prize Money" className="w-full h-12 pl-3 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" />
+                            <label className="text-sm font-semibold">Prize</label>
+                            <input {...register('prizeMoney')} type="text" placeholder="Prize Money" className="w-full h-12 pl-3 rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-violet-600 dark:border-gray-300" />
                         </div>
                         <div className="col-span-full sm:col-span-3">
                             <label className="text-sm font-semibold">Contest Tag</label>
@@ -118,7 +118,7 @@ const AddContest = () => {
                                 <option disabled selected>Select your contest tag</option>
                                 <option value='Image Design'>Image Design</option>
                                 <option value='Article Writing'>Article Writing</option>
-                                <option value='Digital advertisement'>Digital advertisement</option>
+                                <option value='Digital Advertisement'>Digital Advertisement</option>
                                 <option value='Business Idea Concerts'>Business Idea Concerts</option>
                                 <option value='Movie Review'>Movie Review</option>
                                 <option value='Gaming Review'>Gaming Review</option>

@@ -84,8 +84,8 @@ const ViewDetails = () => {
       <Helmet>
         <title>View Details</title>
       </Helmet>
-      <img src={findContest?.contestImg} className='rounded-lg' alt="" />
-      <div className='font-inter'>
+      <img src={findContest?.contestImg} className='rounded-lg h-[800px]' alt="" />
+      <div className='font-inter space-y-2'>
         <h3 className='font-lato text-3xl font-bold'>{findContest?.contestName}</h3>
         <p>{findContest?.contestDes}</p>
         <p><span className='font-semibold'>Participants:</span> {findContest?.participantsCount || 0}</p>

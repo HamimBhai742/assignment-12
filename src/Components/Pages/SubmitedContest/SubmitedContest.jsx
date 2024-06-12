@@ -54,36 +54,36 @@ const SubmitedContest = () => {
         }
     })
 
-    console.log(submitContest);
-    const handelWinerbtn = async (id, winerId) => {
-        if (findCurrentCreator?.status === 'Block') {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You cannot edit contest.Because you have been blocked",
-            });
-            return
-        }
-        const filterWiner = submitContest.filter(s => s.contestId === id)
-        console.log(filterWiner);
-        const findWiner = submitContest.find(f => f._id === winerId)
-        console.log(findWiner);
-        const winerSelect = {
-            perticipantUserEmail: findWiner?.perticipantUserEmail,
-            perticipantUser: findWiner?.perticipantUser,
-            perticipateImg: findWiner?.perticipateImg,
-            contestsId: findWiner?.contestId
+    // console.log(submitContest);
+    // const handelWinerbtn = async (id, winerId) => {
+    //     if (findCurrentCreator?.status === 'Block') {
+    //         Swal.fire({
+    //             icon: "error",
+    //             title: "Oops...",
+    //             text: "You cannot edit contest.Because you have been blocked",
+    //         });
+    //         return
+    //     }
+    //     const filterWiner = submitContest.filter(s => s.contestId === id)
+    //     console.log(filterWiner);
+    //     const findWiner = submitContest.find(f => f._id === winerId)
+    //     console.log(findWiner);
+    //     const winerSelect = {
+    //         perticipantUserEmail: findWiner?.perticipantUserEmail,
+    //         perticipantUser: findWiner?.perticipantUser,
+    //         perticipateImg: findWiner?.perticipateImg,
+    //         contestsId: findWiner?.contestId
 
-        }
-        const res = await axiosSecure.post(`/contest-winer?id=${id}`, winerSelect)
-        console.log(res.data);
-        reCall()
-        // if (res.data.insertedId) {
-        //     const result = await axiosSecure.delete(`/contest-winer/${id}`)
-        //     console.log(result.data);
+    //     }
+    //     const res = await axiosSecure.post(`/contest-winer?id=${id}`, winerSelect)
+    //     console.log(res.data);
+    //     reCall()
+    //     // if (res.data.insertedId) {
+    //     //     const result = await axiosSecure.delete(`/contest-winer/${id}`)
+    //     //     console.log(result.data);
 
-        // }
-    }
+    //     // }
+    // }
     return (
         <div className='m-5 '>
             <Helmet>

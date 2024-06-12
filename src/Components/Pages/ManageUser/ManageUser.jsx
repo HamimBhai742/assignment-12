@@ -179,7 +179,7 @@ const ManageUser = () => {
                 });
                 return
             }
-            const res = await axiosSecure.patch(`/users/${id}`)
+            const res = await axiosSecure.patch(`/users/role/${id}`)
             console.log(res.data);
             reUse()
             refetch()

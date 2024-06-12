@@ -15,7 +15,7 @@ const AllContests = () => {
     const business = accepContest.filter(acpt => acpt.contestTag === 'Business Idea Concerts')
     const gaming = accepContest.filter(acpt => acpt.contestTag === 'Gaming Review')
     const movie = accepContest.filter(acpt => acpt.contestTag === 'Movie Review')
-    const digital = accepContest.filter(acpt => acpt.contestTag === 'Digital advertisement')
+    const digital = accepContest.filter(acpt => acpt.contestTag === 'Digital Advertisement')
     const image = accepContest.filter(acpt => acpt.contestTag === 'Image Design')
     const article = accepContest.filter(acpt => acpt.contestTag === 'Article Writing')
     console.log(marketing);
@@ -41,7 +41,7 @@ const AllContests = () => {
                     <Tab>Business Idea Concerts</Tab>
                     <Tab>Gaming Review</Tab>
                     <Tab>Movie Review</Tab>
-                    <Tab>Digital advertisement</Tab>
+                    <Tab>Digital Advertisement</Tab>
                     <Tab>Article Writing</Tab>
                     <Tab>Image Design</Tab>
                 </TabList>
