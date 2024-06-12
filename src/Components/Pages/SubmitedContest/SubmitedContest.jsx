@@ -5,6 +5,9 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Helmet } from 'react-helmet';
 import SubmCard from './SubmCard';
 import useSubmit from '../../../hooks/useSubmit';
+import useAuth from '../../../hooks/useAuth';
+import useUser from '../../../hooks/useUser';
+import Swal from 'sweetalert2';
 
 const SubmitedContest = () => {
     const axiosSecure = useAxiosSecure()
@@ -20,6 +23,7 @@ const SubmitedContest = () => {
     const [currentPage, setCurrentPage] = useState(0)
     const numberOfPages = Math.ceil(submitContest?.length / itemsPerPage)
     const pages = [...Array(numberOfPages).keys()]
+
 
     const handelSelectedBtn = e => {
         const val = parseInt(e.target.value)
@@ -52,6 +56,14 @@ const SubmitedContest = () => {
 
     console.log(submitContest);
     const handelWinerbtn = async (id, winerId) => {
+        if (findCurrentCreator?.status === 'Block') {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You cannot edit contest.Because you have been blocked",
+            });
+            return
+        }
         const filterWiner = submitContest.filter(s => s.contestId === id)
         console.log(filterWiner);
         const findWiner = submitContest.find(f => f._id === winerId)

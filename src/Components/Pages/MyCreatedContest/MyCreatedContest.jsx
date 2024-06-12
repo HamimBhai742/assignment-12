@@ -9,13 +9,16 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Helmet } from 'react-helmet';
+import useUser from '../../../hooks/useUser';
 
 const MyCreatedContest = () => {
     const [contest, reCall] = useContest()
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
+    const [users] = useUser()
     const myContest = contest.filter(c => c.addUserEmail === user?.email)
+    const findCurrentCreator = users.find(cc => cc?.email === user?.email)
     // const [myCon, setMyCon] = useState(myContest)
     // console.log(contest);
     const [itemsPerPage, setItemsPerPage] = useState(10)
@@ -64,6 +67,14 @@ const MyCreatedContest = () => {
     console.log(adminComment);
     const handelEditBtn = (id) => {
         console.log(id);
+        if (findCurrentCreator?.status === 'Block') {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You cannot edit contest. Because you have been blocked",
+            });
+            return
+        }
         navigate(`/dashboard/update-contest/${id}`)
     }
     const handelDeleteBtn = async (id) => {
@@ -78,6 +89,15 @@ const MyCreatedContest = () => {
             confirmButtonText: "Yes, Delete!"
         }).then(async (result) => {
             if (result.isConfirmed) {
+                if (findCurrentCreator?.status === 'Block') {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "You cannot delete contest. Because you have been blocked",
+                    });
+                    return
+                }
+
                 const res = await axiosSecure.delete(`/my-contest/${id}`)
                 console.log(res.data);
                 if (res.data.deletedCount > 0) {
@@ -94,7 +114,7 @@ const MyCreatedContest = () => {
     }
     return (
         <div className='flex mx-5 gap-5 mt-8'>
-             <Helmet>
+            <Helmet>
                 <title>My Created Contest</title>
             </Helmet>
             <div className="overflow-x-auto">

@@ -9,6 +9,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import { Helmet } from 'react-helmet';
+import useUser from '../../../hooks/useUser';
 
 const API_KEY = import.meta.env.VITE_IMAGE_API_KEY
 const Hosting = `https://api.imgbb.com/1/upload?key=${API_KEY}`
@@ -18,10 +19,22 @@ const AddContest = () => {
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
+    const [users] = useUser()
     const { register, handleSubmit, control, reset } = useForm()
     // const [startDate, setStartDate] = useState(new Date());
+    const findCurrentCreator = users.find(cc => cc?.email === user?.email)
+    console.log(findCurrentCreator);
     const onSubmit = async (data) => {
         console.log(data);
+        if (findCurrentCreator?.status === 'Block') {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "You cannot add any contests.Because you have been blocked",
+            });
+            return
+          }
+
         const imgeFile = { image: data.contestImg[0] }
         console.log(imgeFile);
         const res = await axiosPublic.post(Hosting, imgeFile, {

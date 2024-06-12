@@ -95,9 +95,7 @@ const ManageUser = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.patch(`/users/unblocking/${id}`)
-                // console.log(res.data);
-                const result = await axiosSecure.patch(`/users/${id}`)
-                // console.log(res.data);
+                console.log(res.data);
                 Swal.fire({
                     title: "Unblock!",
                     text: "User have been unblock",

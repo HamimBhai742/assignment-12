@@ -9,13 +9,19 @@ import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet';
 import trophee from '../../../assets/ddddddddddddddddd.png'
 import useConWiner from '../../../hooks/useConWiner';
+import useUser from '../../../hooks/useUser';
+import useAdmin from '../../../hooks/useAdmin';
+import useCreator from '../../../hooks/useCreator';
 
 const ViewDetails = () => {
   const [contest, refetch] = useContest()
   const { user } = useAuth()
   const { id } = useParams()
+  const [users] = useUser()
   const [payHistory] = usePayData()
   const axiosPublic = useAxiosPublic()
+  const [isAdmin] = useAdmin()
+  const [isCreator] = useCreator()
   const findContest = contest.find(c => c._id === id)
   const navigate = useNavigate()
   const dd = findContest?.deadLine.split('/')[0]
@@ -25,18 +31,9 @@ const ViewDetails = () => {
   const deadLins = new Date(deadLi)
   const currDates = new Date()
   const [contestWiner] = useConWiner()
-  // const { data: contestWiner = [] } = useQuery({
-  //   queryKey: [],
-  //   queryFn: async () => {
-  //     const res = await axiosPublic.get('/contest-winer')
-  //     return res.data
-  //   }
-  // })
-
-  console.log(contestWiner);
+  const findCurrentUser = users.find(cu => cu?.email === user?.email)
+  console.log(findCurrentUser);
   const winer = contestWiner.find(s => s.contestsId === id)
-  // console.log(ff, 'gggggggggggggggggggg');
-
   const handelRegistration = (id) => {
     const findPay = payHistory.find(pay => pay.contestId === id)
     if (currDates >= deadLins) {
@@ -48,8 +45,40 @@ const ViewDetails = () => {
       return
     }
 
+
+    if (findCurrentUser?.status === 'Block') {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You may not participate in any contests.Because you have been blocked",
+      });
+      return
+    }
+
+    if (isCreator) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You may not participate in any contests. Because you are the creator",
+      });
+      return
+    }
+
+    if (isAdmin) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You may not participate in any contests. Because you are the admin",
+      });
+      return
+    }
+
+
+
     navigate(`/payment/${id}`)
   }
+  console.log(isAdmin);
+  console.log(isCreator);
   return (
     <div className='mt-28 flex flex-col mx-5 gap-5'>
       <Helmet>

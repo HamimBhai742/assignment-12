@@ -57,7 +57,7 @@ const Navbar = () => {
                                     <NavLink to='/all-contests' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">All
                                         contests</NavLink>
                                     <NavLink to='/pay-history' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Payment History</NavLink>
-                                    <NavLink to='/ffffff' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Experts</NavLink>
+                                    <NavLink to='/leaderbaord' className="px-3 py-1 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform  lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Leader Board</NavLink>
                                 </div>
                                 <div className='mx-6'>
                                     <label onChange={handelgg} className="swap swap-rotate">

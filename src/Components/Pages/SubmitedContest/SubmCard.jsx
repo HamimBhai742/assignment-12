@@ -3,12 +3,26 @@ import useContest from '../../../hooks/useContest';
 import Swal from 'sweetalert2';
 import useSubmit from '../../../hooks/useSubmit';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAuth from '../../../hooks/useAuth';
+import useUser from '../../../hooks/useUser';
 
 const SubmCard = ({ sm, reCall }) => {
     const [contest] = useContest()
     const axiosSecure = useAxiosSecure()
     const [submitContest] = useSubmit()
+    const { user } = useAuth()
+    const [users] = useUser()
+    const findCurrentCreator = users.find(cc => cc?.email === user?.email)
+
     const handelSelectWiner = async (id, winerId) => {
+        if (findCurrentCreator?.status === 'Block') {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You cannot declare winer contest. Because you have been blocked",
+            });
+            return
+        }
         const finWinCon = contest.find(c => c._id === id)
         const dd = finWinCon?.deadLine.split('/')[0]
         const mm = finWinCon?.deadLine.split('/')[1]

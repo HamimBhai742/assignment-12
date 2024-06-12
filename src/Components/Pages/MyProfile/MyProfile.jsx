@@ -6,6 +6,7 @@ import { MdEdit } from 'react-icons/md';
 import { GrEdit } from 'react-icons/gr';
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const MyProfile = () => {
     const { user, updateUserProfile } = useAuth()
@@ -13,7 +14,16 @@ const MyProfile = () => {
     console.log(users);
     const myPro = users.find(us => us.email === user?.email)
     const [edit, setEdit] = useState(false)
+    const currentUser = users.find(cu => cu?.email === user?.email)
     const handeleEditBtn = () => {
+        if (currentUser?.status === 'Block') {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You cannot edit the profile.Because you have been blocked",
+            });
+            return
+        }
         setEdit(!edit)
     }
     console.log(edit);
@@ -56,7 +66,7 @@ const MyProfile = () => {
                         </p>
                     </div>
                 </div>
-                <button onClick={handeleEditBtn} className={edit?'text-2xl text-blue-700':'text-2xl'}>
+                <button onClick={handeleEditBtn} className={edit ? 'text-2xl text-blue-700' : 'text-2xl'}>
                     <GrEdit></GrEdit>
                 </button>
             </div>
